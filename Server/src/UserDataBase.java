@@ -26,7 +26,6 @@ public class UserDataBase {
 				users.remove(i);
 			}
 		}
-	}	
-	
+	}
 }
 
