@@ -12,11 +12,11 @@ public class Chatroom {
 	// An ArrayList that stores all of the users in the chatroom
 	private ArrayList<User> users = new ArrayList<>();
 	
+	//an arrayList of chat messages
+	private ArrayList<ChatMessage> messages = new ArrayList<>();
+	
 	// A User object that stores the user that created the chatroom
 	private User creator;
-	
-	// a ChatHistory object used to store the chat history of the chatroom
-	private ChatHistory chatHistory;
 	
 	// The constructor for the Chatroom class that creates a Chatroom where the user creating the chatroom is assigned the creator 
 	// and where the chatroom is given a specific name
@@ -79,4 +79,15 @@ public class Chatroom {
 		//chatHistory.add(displayMessage());
 		
 	}
+	public ArrayList<ChatMessage> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(ArrayList<ChatMessage> messages) {
+        this.messages = messages;
+    }
+
+    public void addMessage(ChatMessage message) {
+        this.messages.add(message);
+    }
 }

@@ -27,5 +27,11 @@ public class UserDataBase {
 			}
 		}
 	}
+	public ArrayList<User> reUsers(){
+	return users;
+	}
+	void addUser(User user) {
+		users.add(user);
+	}
 }
 
