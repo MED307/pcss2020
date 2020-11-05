@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class User implements Serializable {
+public class User implements Serializable {//Serializable allows conversion data types to bytes and stores the data and datatype. so it can be sent through Sockets
 
 
     /**

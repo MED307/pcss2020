@@ -1,7 +1,13 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Chatroom {
+public class Chatroom implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 	
 	// The name of the chatroom
 	private String name;
@@ -50,26 +56,6 @@ public class Chatroom {
 		
 	}
     
-    // Method that returns of list of usernames of the users in the chatroom
-    public ArrayList<String> getUsernames() {
-    	
-    	
-    	// An ArrayList for the usernames is created
-    	ArrayList<String> usernames = new ArrayList<>();
-    	
-    	// A for each loop goes through the user and gets their usernames
-    	for(User i: ClientHandler.udb.getUsers()) {
-    		for(String j: users) {
-    			if(j.compareTo(i.getId())==0) {
-    				usernames.add(i.getUsername());
-    			}
-    		}
-    	}
-    	
- 		return usernames;
- 		
- 	}
-	
     // Method that is used to display a message
 	public String displayMessage(User user, String message) {
 		

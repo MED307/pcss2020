@@ -1,7 +1,7 @@
 
 import java.io.Serializable;
 
-public class ChatMessage implements Serializable{
+public class ChatMessage implements Serializable{ //Serializable allows conversion data types to bytes and stores the data and datatype. so it can be sent through Sockets
 	  /**
      * 
      */
@@ -16,8 +16,8 @@ public class ChatMessage implements Serializable{
 
     public ChatMessage(String msg, String userID, String roomID)
     {
-        this.message = msg;
-        this.userID = userID;
+        this.message = msg;			
+        this.userID = userID;		
         this.setRoomID(roomID);
     }
 

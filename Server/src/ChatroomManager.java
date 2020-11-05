@@ -38,7 +38,6 @@ public class ChatroomManager {
 				
 				// The chatroom with the matching id is removed
 				chatrooms.remove(i);
-
 		}
 	}
   }

@@ -1,47 +1,40 @@
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
 public class ClientHandler implements Runnable {
-	private Socket client;
-	private BufferedReader input;
-	private PrintWriter output;
-	public static UserDataBase udb = new UserDataBase();
-	public static ChatroomManager crm = new ChatroomManager();
-	private User clientUser;
-	ObjectInputStream oisin = new ObjectInputStream(client.getInputStream());
-	ObjectOutputStream oosout = new ObjectOutputStream(client.getOutputStream());
+	private Socket client;				// a socket with the name client
+	public static UserDataBase udb = new UserDataBase();	//an instance of the class UserDataBase, used to call methods in the class
+	public static ChatroomManager crm = new ChatroomManager(); //an instance of the class ChatroomManager, used to call methods in the class
+	private User clientUser;	//used to get information from the connected client
+	ObjectInputStream oisin = new ObjectInputStream(client.getInputStream());   //used to read the objects sent by the client
+	ObjectOutputStream oosout = new ObjectOutputStream(client.getOutputStream()); //used to write objects and send them to the client
 	
-	public ClientHandler(Socket clientSocket) throws IOException {
+	//the constructor
+	public ClientHandler(Socket clientSocket) throws IOException { 
 		this.client = clientSocket;
-		input = new BufferedReader(new InputStreamReader(client.getInputStream()));
-		//output = new PrintWriter(client.getOutputStream());
-		
 	}
-	//receives string(creating a user), object user, og et chatroom, message
+	
 	@Override
 	public void run() {
 		try {
-
 			while(true) {
-				//for the users
-				Object something = oisin.readObject();
+				//The following segment is meant for user creation and login
+				Object something = oisin.readObject(); //creates an object that can read the input from the client
 				//check user login
-				if(something instanceof ArrayList<?>) {
-					String ushername = (String) ((ArrayList<?>)something).get(0);
+				if(something instanceof ArrayList<?>) {  //if the received object is an ArryList do the following 
+					String ushername = (String) ((ArrayList<?>)something).get(0); 
 					String password = (String) ((ArrayList<?>)something).get(1);
 					int userIndex = 0;
 					boolean login = false;
-					for(int i= 0 ; i > udb.getUsers().size() ; i++ ) {
-						if(udb.getUsers().get(i).getUsername().compareTo(ushername) == 0) {
+					for(int i= 0 ; i < udb.getUsers().size() ; i++ ) {		//goes through every line till it reaches the last line
+						if(udb.getUsers().get(i).getUsername().compareTo(ushername) == 0) { //Finds the written username in the list if possible 
 							userIndex = i;
 						}
-						if(udb.getUsers().get(userIndex).getPassword().compareTo(password) == 0 ) {
+						if(udb.getUsers().get(userIndex).getPassword().compareTo(password) == 0 ) {	//checks the passwords connected to the username
 							login = true;
 							oosout.writeObject(udb.getUsers().get(userIndex));
 							setClientUser(udb.getUsers().get(userIndex)); 
@@ -49,17 +42,16 @@ public class ClientHandler implements Runnable {
 						} else {
 							login = false;
 							System.out.println("wrong username/password");
-							//oisout.writeBoolean(login);
 						}
 					}
 				}//login done
 				
 				//creates a new user
-				if(something instanceof String) {
-					String usercheck = ((String)something);
+				if(something instanceof String) {		//if received object is a string do the following 
+					String usercheck = ((String)something); //the received String is put into the variable 
 					boolean check = false;
-					for(int i= 0 ; i > udb.getUsers().size() ; i++ ) {
-						if(udb.getUsers().get(i).getUsername().compareTo(usercheck) == 0) {
+					for(int i= 0 ; i < udb.getUsers().size() ; i++ ) { //goes through every line till it reaches the last line
+						if(udb.getUsers().get(i).getUsername().compareTo(usercheck) == 0) {  //checks if the username is already in use
 							check = true;
 							oosout.writeBoolean(check);
 							break;
@@ -75,15 +67,14 @@ public class ClientHandler implements Runnable {
 					System.out.println("user added");
 				} 
 				//chatrooms
-				Object chat = oisin.readObject();
-				boolean chatcheck = false;
+				Object chat = oisin.readObject();	//creates an object that can read the input from the client
 				if(chat instanceof ChatMessage){
 					for(Chatroom i: crm.getChatrooms()) { //going through the chatroom IDs
 						if(i.getChatId() == ((ChatMessage)chat).getRoomID()) {// if the messages ID matches the Room ID
-							chatcheck = true;
 							i.addMessage((ChatMessage)chat);  //Adds a message to the chatroom						
 						}
 					}
+					//Sends the message out to all active clients in the chatroom
 			    	for(ClientHandler i: Server.clients) {
 			    		for(String j: i.getClientUser().getChatRooms()) {
 			    			if(j.compareTo(((ChatMessage)chat).getRoomID())==0) {
@@ -92,25 +83,20 @@ public class ClientHandler implements Runnable {
 			    		}
 			    	}
 				}
-				if(chat instanceof Chatroom) {
-					
-				}
-				
 			}
-		} catch (ClassNotFoundException | IOException e) {
+		} catch (ClassNotFoundException | IOException e) { //the OIS and OOS can throw InputOutputExceptions
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		finally{
-			output.close();
+		finally {
 			try {
-				input.close();
-			} catch (IOException e) {
+				oosout.close();
+				oisin.close();
+			} catch (IOException e) {	//the OIS and OOS can throw InputOutputExceptions
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		
+		}	
 	}
 	public User getClientUser() {
 		return clientUser;
