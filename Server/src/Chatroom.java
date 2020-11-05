@@ -7,10 +7,10 @@ public class Chatroom {
 	private String name;
 	
 	// The id for the chatroom 
-	private int chatId;
+	private String chatId;
 	
 	// An ArrayList that stores all of the users in the chatroom
-	private ArrayList<User> users = new ArrayList<>();
+	private ArrayList<String> users = new ArrayList<>();
 	
 	//an arrayList of chat messages
 	private ArrayList<ChatMessage> messages = new ArrayList<>();
@@ -27,7 +27,7 @@ public class Chatroom {
 		
 		// A random integer is assigned as the id for the chatroom
 		Random rd = new Random();
-        this.chatId = rd.nextInt();
+        this.chatId = Integer.toString(rd.nextInt());
 	}
 	
 	// Method that returns the name of the chatroom
@@ -38,7 +38,7 @@ public class Chatroom {
 	}
 	
 	// Method that returns the unique id of the chatroom
-	public int getChatId() {
+	public String getChatId() {
 		
 		return chatId;
 	}
@@ -58,10 +58,14 @@ public class Chatroom {
     	ArrayList<String> usernames = new ArrayList<>();
     	
     	// A for each loop goes through the user and gets their usernames
-    	for(User i: users) {
-    		usernames.add(i.getUsername());
+    	for(User i: ClientHandler.udb.getUsers()) {
+    		for(String j: users) {
+    			if(j.compareTo(i.getId())==0) {
+    				usernames.add(i.getUsername());
+    			}
+    		}
     	}
-
+    	
  		return usernames;
  		
  	}

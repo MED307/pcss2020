@@ -9,15 +9,15 @@ public class ChatMessage implements Serializable{
 
     private String message;
 
-    private User user;
+    private String userID;
 
-    private int roomID;
+    private String roomID;
 
 
-    public ChatMessage(String msg, User user, int roomID)
+    public ChatMessage(String msg, String userID, String roomID)
     {
         this.message = msg;
-        this.user = user;
+        this.userID = userID;
         this.setRoomID(roomID);
     }
 
@@ -29,19 +29,19 @@ public class ChatMessage implements Serializable{
         this.message = message;
     }
 
-    public User getUser() {
-        return user;
+    public String getUser() {
+        return userID;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(String userID) {
+        this.userID = userID;
     }
 
-    public int getRoomID() {
+    public String getRoomID() {
         return roomID;
     }
 
-    public void setRoomID(int roomID) {
+    public void setRoomID(String roomID) {
         this.roomID = roomID;
     }
 

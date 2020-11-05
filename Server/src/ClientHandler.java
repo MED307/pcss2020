@@ -11,9 +11,9 @@ public class ClientHandler implements Runnable {
 	private Socket client;
 	private BufferedReader input;
 	private PrintWriter output;
-	UserDataBase udb = new UserDataBase();
-	ChatroomManager crm = new ChatroomManager();
-	
+	public static UserDataBase udb = new UserDataBase();
+	public static ChatroomManager crm = new ChatroomManager();
+	private User clientUser;
 	ObjectInputStream oisin = new ObjectInputStream(client.getInputStream());
 	ObjectOutputStream oosout = new ObjectOutputStream(client.getOutputStream());
 	
@@ -27,6 +27,7 @@ public class ClientHandler implements Runnable {
 	@Override
 	public void run() {
 		try {
+
 			while(true) {
 				//for the users
 				Object something = oisin.readObject();
@@ -36,13 +37,14 @@ public class ClientHandler implements Runnable {
 					String password = (String) ((ArrayList<?>)something).get(1);
 					int userIndex = 0;
 					boolean login = false;
-					for(int i= 0 ; i > udb.reUsers().size() ; i++ ) {
-						if(udb.reUsers().get(i).getUsername().compareTo(ushername) == 0) {
+					for(int i= 0 ; i > udb.getUsers().size() ; i++ ) {
+						if(udb.getUsers().get(i).getUsername().compareTo(ushername) == 0) {
 							userIndex = i;
 						}
-						if(udb.reUsers().get(userIndex).getPassword().compareTo(password) == 0 ) {
+						if(udb.getUsers().get(userIndex).getPassword().compareTo(password) == 0 ) {
 							login = true;
-							oosout.writeObject(udb.reUsers().get(userIndex));
+							oosout.writeObject(udb.getUsers().get(userIndex));
+							setClientUser(udb.getUsers().get(userIndex)); 
 							break;
 						} else {
 							login = false;
@@ -56,8 +58,8 @@ public class ClientHandler implements Runnable {
 				if(something instanceof String) {
 					String usercheck = ((String)something);
 					boolean check = false;
-					for(int i= 0 ; i > udb.reUsers().size() ; i++ ) {
-						if(udb.reUsers().get(i).getUsername().compareTo(usercheck) == 0) {
+					for(int i= 0 ; i > udb.getUsers().size() ; i++ ) {
+						if(udb.getUsers().get(i).getUsername().compareTo(usercheck) == 0) {
 							check = true;
 							oosout.writeBoolean(check);
 							break;
@@ -72,16 +74,23 @@ public class ClientHandler implements Runnable {
 					udb.addUser((User)something);
 					System.out.println("user added");
 				} 
-				//chatrooms0
+				//chatrooms
 				Object chat = oisin.readObject();
 				boolean chatcheck = false;
 				if(chat instanceof ChatMessage){
-					for(int i= 0 ; i > crm.getChatrooms().size() ; i++ ) { //going through the chatroom IDs
-						if(crm.getChatrooms().get(i).getChatId() == ((ChatMessage)chat).getRoomID()) {// if the messages ID matches the Room ID
+					for(Chatroom i: crm.getChatrooms()) { //going through the chatroom IDs
+						if(i.getChatId() == ((ChatMessage)chat).getRoomID()) {// if the messages ID matches the Room ID
 							chatcheck = true;
-							crm.getChatrooms().get(i).addMessage((ChatMessage)chat);  //Adds a message to the chatroom
+							i.addMessage((ChatMessage)chat);  //Adds a message to the chatroom						
 						}
 					}
+			    	for(ClientHandler i: Server.clients) {
+			    		for(String j: i.getClientUser().getChatRooms()) {
+			    			if(j.compareTo(((ChatMessage)chat).getRoomID())==0) {
+			    				i.oosout.writeObject((ChatMessage)chat);
+			    			}
+			    		}
+			    	}
 				}
 				if(chat instanceof Chatroom) {
 					
@@ -102,6 +111,12 @@ public class ClientHandler implements Runnable {
 			}
 		}
 		
+	}
+	public User getClientUser() {
+		return clientUser;
+	}
+	public void setClientUser(User clientUser) {
+		this.clientUser = clientUser;
 	}
 	
 	

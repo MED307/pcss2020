@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Server {
 	
-	private static ArrayList<ClientHandler> clients = new ArrayList<>();
+	public static ArrayList<ClientHandler> clients = new ArrayList<>();
 	private static final int PORT = 8000;
 	
 	public static void main(String[] args) throws IOException {
@@ -26,7 +26,6 @@ public class Server {
 		}
 		//PrintWriter output = new PrintWriter(client.getOutputStream(), true);
 		//BufferedReader input = new BufferedReader(new InputStreamReader(client.getInputStream()));
-		
 	}
 
 }
