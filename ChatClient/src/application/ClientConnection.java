@@ -3,29 +3,29 @@ package application;
 import java.io.Serializable;
 import java.util.function.Consumer;
 
-public abstract class ClientConnection {
+public class ClientConnection extends NetworkConnection {
+
+	private String ip;
+	private int port;
 	
-	private Consumer<Serializable> onReceiveCallback;
-	
-	public ClientConnection(Consumer<Serializable> onReceiveCallback) 
-	{
-		this.onReceiveCallback = onReceiveCallback;
-	}
-	
-	public void startConnection() throws Exception 
-	{
+	public ClientConnection(String ip, int port, Consumer<Serializable> onReceiveCallback) {
+		super(onReceiveCallback);
+		this.ip = ip;
+		this.port = port;
 		
 	}
-	
-	public void send(Serializable data) throws Exception 
-	{
-		
+
+
+	// Get IP
+	@Override
+	protected String getIP() {
+		return ip;
 	}
-	
-	public void closeConnection() throws Exception
-	{
-		
+
+	// Get Port
+	@Override
+	protected int getPort() {
+		return port;
 	}
-	
 
 }

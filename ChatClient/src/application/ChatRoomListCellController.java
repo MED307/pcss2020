@@ -1,4 +1,4 @@
-package application;
+/*package application;
 
 import java.io.IOException;
 
@@ -55,4 +55,4 @@ public class ChatRoomListCellController extends ListCell<Chatroom>{
         	
         }
 	}
-}
+}*/

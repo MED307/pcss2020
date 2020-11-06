@@ -1,25 +1,29 @@
 package application.dataTypes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class User {
+public class User implements Serializable {
 
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private String username;
     private String password;
     private Chatroom currentChatRoom;
-    private int id;
-    
-    private ArrayList<Chatroom> chatRooms = new ArrayList<Chatroom>();
+    private String id;
 
+    private ArrayList<String> chatRooms = new ArrayList<>();
 
     public User(String username, String password){
         this.username = username;
         this.password = password;
 
         Random cd = new Random();
-        id = cd.nextInt();
+        id = username + cd.nextInt();
     }
 
     public String getUsername() {
@@ -38,28 +42,28 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-	public ArrayList<Chatroom> getChatRooms() {
-		return chatRooms;
-	}
+    public ArrayList<String> getChatRooms() {
+        return chatRooms;
+    }
 
-	public void setChatRooms(ArrayList<Chatroom> chatRooms) {
-		this.chatRooms = chatRooms;
-	}
-	
-	public void addChatRoom(Chatroom chatRoom) {
-		this.chatRooms.add(chatRoom);
-	}
+    public void setChatRooms(ArrayList<String> chatRooms) {
+        this.chatRooms = chatRooms;
+    }
 
-	public Chatroom getCurrentChatRoom() {
-		return currentChatRoom;
-	}
+    public void addChatRoom(String chatRoom) {
+        this.chatRooms.add(chatRoom);
+    }
 
-	public void setCurrentChatRoom(Chatroom currentChatRoom) {
-		this.currentChatRoom = currentChatRoom;
-	}
+    public Chatroom getCurrentChatRoom() {
+        return currentChatRoom;
+    }
+
+    public void setCurrentChatRoom(Chatroom currentChatRoom) {
+        this.currentChatRoom = currentChatRoom;
+    }
 
 }

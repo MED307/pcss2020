@@ -9,8 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 
+// Class that becomes the message that gets added to a chat's listview.
 public class ChatListCellController extends ListCell<ChatMessage>{
 	
+	// FXML Imports
 	@FXML
 	Label userName;
 	
@@ -48,7 +50,7 @@ public class ChatListCellController extends ListCell<ChatMessage>{
 
             }
         	
-        	userName.setText(msg.getUser().getUsername() + ": ");
+        	userName.setText(msg.getUser() + ": ");
         	message.setText(msg.getMessage());
         	
         	setGraphic(pane);

@@ -17,8 +17,8 @@
             <Image url="@../../../assets/UI/body.png" />
          </image>
       </ImageView>
-      <TextField id="inputNewRoom" fx:id="chatName" layoutX="99.0" layoutY="66.0" prefHeight="25.0" prefWidth="176.0" style="-fx-background-color: #3e3a42;" styleClass="fillColor" stylesheets="@../application.css" />
-      <Label layoutX="18.0" layoutY="70.0" text="Room Name" textFill="#8b7b8d" />
+      <TextField id="inputNewRoom" fx:id="chatName" layoutX="99.0" layoutY="42.0" prefHeight="25.0" prefWidth="176.0" promptText="Name of chatroom" style="-fx-background-color: #3e3a42;" styleClass="fillColor" stylesheets="@../application.css" />
+      <Label layoutX="18.0" layoutY="46.0" text="Room Name" textFill="#8b7b8d" />
       <Label layoutX="97.0" layoutY="15.0" text="New Chatroom" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -30,6 +30,9 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+      <Text fx:id="infoText" fill="#d3e156" layoutX="22.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Must include the names of any users you wish to add to the chat" textAlignment="CENTER" wrappingWidth="167.21875" />
       <Text fx:id="popErrorRoomTxt" fill="#d30027" layoutX="16.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error: Room name already exist" textAlignment="CENTER" visible="false" wrappingWidth="167.21875" />
+      <TextField id="cssinputDesiredUsers" fx:id="desiredUsers" layoutX="99.0" layoutY="72.0" prefHeight="25.0" prefWidth="176.0" promptText="Sperate by &quot;, &quot; comma space" style="-fx-background-color: #3e3a42;" styleClass="fillColor" stylesheets="@../application.css" />
+      <Label layoutX="18.0" layoutY="76.0" text="Desired Users*" textFill="#8b7b8d" />
    </children>
 </AnchorPane>

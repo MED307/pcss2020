@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.dataTypes.Chatroom;
@@ -26,9 +27,9 @@ import javafx.util.Callback;
 
 public class ChatSelectorController extends Controller implements Initializable{
 	
-	
+	// Importing and instantiating the FXML variables 
 	@FXML
-	private ListView<Chatroom> listview;
+	private ListView<String> listview;
 	
 	@FXML
 	private Button createRoomBtn;
@@ -36,13 +37,14 @@ public class ChatSelectorController extends Controller implements Initializable{
 	@FXML
 	private Button logOutBtn;
 	
-	Chatroom currentItemSelected;
+	String currentItemSelected;
 
+	
+	// Initialize, in which list view is selectable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		listview.setCellFactory(chatRoomListView -> new ChatRoomListCellController());
-		
+				
 		listview.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 		    @Override
@@ -51,8 +53,25 @@ public class ChatSelectorController extends Controller implements Initializable{
 		        if (click.getClickCount() == 2) {
 		           currentItemSelected = listview.getSelectionModel().getSelectedItem();
 		           try {
-		        	   getUser().setCurrentChatRoom(currentItemSelected);
-		        	   changeScene(click, "Chat.fxml", getUser());
+		        	   
+		        	   try {
+						getConnection().send(currentItemSelected);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        	   
+		        	   Object requested = null;
+		        	   while (!(requested instanceof Chatroom)) {
+		        		   try {
+							requested = getConnection().receive();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}	   
+		        	   }
+		        	   getUser().setCurrentChatRoom((Chatroom)requested);
+		        	   changeScene(click, "Chat.fxml", getUser(), getConnection());
 		           } catch (IOException e) {
 					// TODO Auto-generated catch block
 		        	   e.printStackTrace();
@@ -64,9 +83,10 @@ public class ChatSelectorController extends Controller implements Initializable{
 
 	}
 	
+	// Method for loading chatrooms.
 	public void loadChatrooms() 
 	{
-		for(Chatroom i: this.getUser().getChatRooms())
+		for(String i: this.getUser().getChatRooms())
 		{
 			listview.getItems().add(i);
 		}
@@ -75,22 +95,32 @@ public class ChatSelectorController extends Controller implements Initializable{
 
 
 
-
+	// Method for creating a new chatroom, opens popup.
 	public void createRoomBtn(ActionEvent event) throws IOException {
 		
 		System.out.println("Room btn works");
 		UserPopUp pop = new UserPopUp();
-		String test = pop.display("new chatroom", "PopUps/newChatroom.fxml");
-		Chatroom ctm = new Chatroom(getUser(),test);
-		listview.getItems().add(ctm);
-		this.getUser().addChatRoom(ctm);
+		ArrayList<String> outcome = pop.displayChatroom("new chatroom", "PopUps/newChatroom.fxml");
+		String roomName = outcome.get(0);
+		ArrayList<String> newChatUser = new ArrayList<>();
+		for (int i = 1; i < outcome.size()-1; i++) {
+			newChatUser.add(outcome.get(i));
+		}
+
+		Chatroom ctm = new Chatroom(getUser(),roomName, newChatUser);
+		listview.getItems().add(roomName);
+		try {
+			getConnection().send(ctm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-
+	// Method for loggin out.
 	public void logOut(ActionEvent event)
 	{
 		try {
-			changeScene(event, "Client.fxml", getUser());
+			changeScene(event, "Client.fxml", getUser(), getConnection());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

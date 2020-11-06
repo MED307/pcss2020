@@ -4,6 +4,7 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.dataTypes.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class NewUserController implements Initializable{
+public class NewUserController extends Controller implements Initializable{
 	
 	@FXML
 	private TextField newUserNameInput;
@@ -27,8 +28,8 @@ public class NewUserController implements Initializable{
 	@FXML
 	private Text popErrorNameTxt;
 	
-	private String userPass;
-	
+
+	// Method for creating new user
 	public void createNewUser(ActionEvent event)
 	{
 		
@@ -41,9 +42,27 @@ public class NewUserController implements Initializable{
 		
 		else if (this.newUserNameInput.getText() != null && this.newUserNameInput.getText() != null) 
 		{
-			setUserPass(this.newUserNameInput.getText()+ (" ") + this.newPassWordInput.getText());
-			System.out.println("User saved: "+ userPass);
-			((Stage)(((Button)event.getSource()).getScene().getWindow())).close(); 
+			try {
+				getConnection().send(newUserNameInput.getText());
+				
+				boolean nameTaken = false;
+
+				if (nameTaken != true ) {
+					System.out.println("User saved: " + this.newUserNameInput.getText()+ " | " + this.newPassWordInput.getText());
+					User user = new User(this.newUserNameInput.getText(),this.newPassWordInput.getText());
+					getConnection().send(user);
+					((Stage)(((Button)event.getSource()).getScene().getWindow())).close(); 
+				}
+				
+				else {
+					popErrorNameTxt.setText("Username already taken");
+					popErrorNameTxt.setVisible(true);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		}
 	}
 	
@@ -51,15 +70,6 @@ public class NewUserController implements Initializable{
 	{
 		popErrorNameTxt.setText("Username already taken");
 		popErrorNameTxt.setVisible(true);
-	}
-
-
-	public String getUserPass() {
-		return userPass;
-	}
-
-	private void setUserPass(String userPass) {
-		this.userPass = userPass;
 	}
 	
 	@Override

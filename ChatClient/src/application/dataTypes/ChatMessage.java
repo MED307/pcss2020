@@ -1,32 +1,50 @@
 package application.dataTypes;
 
-public class ChatMessage{
-	
-	private String message;
-	
-	private User user;
-	
-	
-	public ChatMessage(String msg, User user)
-	{
-		this.message = msg;
-		this.user = user;
-	}
+import java.io.Serializable;
 
-	public String getMessage() {
-		return message;
-	}
+public class ChatMessage implements Serializable{
+      /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    private String message;
 
-	public User getUser() {
-		return user;
-	}
+    private String userID;
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    private String roomID;
+
+
+    public ChatMessage(String msg, String userID, String roomID)
+    {
+        this.message = msg;
+        this.userID = userID;
+        this.setRoomID(roomID);
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getUser() {
+        return userID;
+    }
+
+    public void setUser(String userID) {
+        this.userID = userID;
+    }
+
+    public String getRoomID() {
+        return roomID;
+    }
+
+    public void setRoomID(String roomID) {
+        this.roomID = roomID;
+    }
+
 
 }

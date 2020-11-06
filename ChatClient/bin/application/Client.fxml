@@ -20,13 +20,18 @@
                   <Image url="@../../assets/UI/bgplace.png" />
                </image>
             </ImageView>
+            <Text id="title" fill="WHITE" layoutX="426.0" layoutY="92.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" text="307 Chat" textAlignment="CENTER" wrappingWidth="149.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <TextField id="inputLoginUsername" fx:id="userNameInput" layoutX="421.0" layoutY="107.0" promptText="Username" style="-fx-background-color: #3e3a42;" styleClass="fillColor" stylesheets="@application.css" />
             <PasswordField id="inputLoginPassword" fx:id="passWordInput" layoutX="421.0" layoutY="140.0" promptText="Password" style="-fx-background-color: #3e3a42;" stylesheets="@application.css">
                <styleClass>
                   <String fx:value="fillColor" />
                   <String fx:value="fillColor" />
                </styleClass>
             </PasswordField>
-            <TextField id="inputLoginUsername" fx:id="userNameInput" layoutX="421.0" layoutY="107.0" promptText="Username" style="-fx-background-color: #3e3a42;" styleClass="fillColor" stylesheets="@application.css" />
             <Button id="btnLogin" fx:id="loginBtn" layoutX="425.0" layoutY="174.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: none;" text="Log-in" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -35,11 +40,6 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text fill="WHITE" layoutX="426.0" layoutY="81.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" text="307 Chat" textAlignment="CENTER" wrappingWidth="149.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Text>
             <Button id="btnCreateUser" fx:id="createUserBtn" layoutX="488.0" layoutY="174.0" mnemonicParsing="false" onAction="#createNewuser" prefHeight="25.0" prefWidth="86.0" style="-fx-background-color: none;" styleClass="btn" stylesheets="@application.css" text="Create User" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -48,7 +48,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text fx:id="invalidLoginTxt" fill="#d30027" layoutX="416.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid credentials" textAlignment="CENTER" visible="false" wrappingWidth="167.21875" />
+            <Text fx:id="invalidLoginTxt" fill="#d30027" layoutX="416.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid credentials" textAlignment="CENTER" visible="false" wrappingWidth="167.21875" />
          </children>
       </AnchorPane>
    </children>

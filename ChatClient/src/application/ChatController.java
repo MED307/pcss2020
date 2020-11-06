@@ -28,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+// Class for the chatroom
 public class ChatController extends Controller implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -43,7 +44,6 @@ public class ChatController extends Controller implements Initializable{
 			};
 		chatDisplayList.addEventFilter(MouseEvent.MOUSE_PRESSED, filter);
 
-		
 	}
 
 	//FXML imports 
@@ -62,63 +62,106 @@ public class ChatController extends Controller implements Initializable{
 	@FXML
 	private Text roomNametxt;
 	
+	private boolean isChatting;
+	
+	
+	private Thread chatThread = new Thread() {													// A Thread for updating the chat, looking for new imputs from server to display. 
+		public void run() {
+			isChatting = true;																	// Sets a bool true
+			System.out.println("Test thread");
+			
+			while(isChatting) {																	// While bool is true, loop to keep running while chat is active
+				try {
+					chatDisplayList.getItems().add((ChatMessage)getConnection().receive());		// Recieves new items from server to list
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	};
+	
+	private String roomID = getUser().getCurrentChatRoom().getChatId();							// Sets the roomID
+	
+	// Method for loading chat
 	public void loadChat() 
 	{
-		for(ChatMessage e: getUser().getCurrentChatRoom().getMessages()) 
+		for(ChatMessage e: getUser().getCurrentChatRoom().getMessages()) 						// For loop, that adds messages to chat
 		{
-			addMessage(e);
+			addMessage(e);																		// Runs the  addMessage method
 		}
 	}
 	
 
-	//Send by pressing the button
+	// Method makes the button interactable
 	public void sendbtn(ActionEvent event) {
-		sendMessage();
+		sendMessage();																			// runs the Send method 
 	}
 	
-	//Send by pressing "Enter"
+	// Method makes the 'Enter' key interactable
 	public void sendField(KeyEvent keyEvent) {
 				
-		if (keyEvent.getCode() == KeyCode.ENTER) {
-			sendMessage();
+		if (keyEvent.getCode() == KeyCode.ENTER) {												// If key is "Enter"
+			sendMessage();																		// runs the Send method 
 		}
 	}
 
-	//Method for sending message to list
+	// Method for sending a message
 	public void sendMessage() {
-		ChatMessage message = new ChatMessage(chatField.getText(), getUser());
+		String roomID = getUser().getCurrentChatRoom().getChatId();
+		ChatMessage message = new ChatMessage(chatField.getText(), getUser().getId(), roomID);	
 		
-		if (message.getMessage() != null) {
-			chatField.setText(null);
-			this.chatDisplayList.getItems().add(message);
-			chatDisplayList.scrollTo(chatDisplayList.getItems().size());
-			getUser().getCurrentChatRoom().addMessage(message);
+		if (message.getMessage() != null) { 								// If the text field is not empty.
+			chatField.clear();												// Clears text field
+			this.chatDisplayList.getItems().add(message);					// Adds message to chat 
+			chatDisplayList.scrollTo(chatDisplayList.getItems().size());	// Scrolls to the bottom
+			getUser().getCurrentChatRoom().addMessage(message);				// 
+			try {
+				getConnection().send(message);								// Sends the message to server.
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+			
 		}
 		
 		else {
 			System.out.println("No message sent. Message was: " + message);
 		}
 	}
+	
+	// 
 	public void addMessage(ChatMessage msg)
 	{
-		this.chatDisplayList.getItems().add(msg);
+		try {
+			getConnection().send(msg);	//Sends the ChatMessage object to server.
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	//	this.chatDisplayList.getItems().add(msg); // Displays the mesage on listView
 	}
 	
+	
+	// Method to go back to chat server list.
 	public void goBack(ActionEvent event)
 	{
 		try {
-			changeScene(event, "ChatSelector.fxml", getUser());
+			changeScene(event, "ChatSelector.fxml", getUser(), getConnection());	//Change scene to chat room selection
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	// Method for getting chat room name
 	public Text getRoomNametxt() {
 		return roomNametxt;
 	}
 
+	// Method for setting chat room name
 	public void setRoomNametxt(String roomNametxt) {
 		this.roomNametxt.setText(roomNametxt);
 	}
+	
+
 }

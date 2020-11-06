@@ -12,11 +12,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="10.0" minWidth="10.0" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewUserController">
+<AnchorPane minHeight="10.0" minWidth="10.0" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewUserController"> <!-- The base ratios  -->
    <children>
-      <ImageView fitHeight="158.0" fitWidth="300.0" layoutY="-4.0">
+      <ImageView fitHeight="158.0" fitWidth="300.0" layoutY="-4.0"> <!-- Sets an imageView for background image with size  -->
          <image>
-            <Image url="@../../../assets/UI/body.png" />
+            <Image url="@../../../assets/UI/body.png" />			<!-- Path to the image location -->
          </image>
       </ImageView>
       <TextField layoutX="76.0" layoutY="50.0" style="-fx-background-color: none;" />
