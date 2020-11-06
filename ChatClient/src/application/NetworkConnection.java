@@ -37,12 +37,14 @@ public abstract class NetworkConnection {
 	
 	public Object receive() throws Exception
 	{
-		
-		if(connThread.in.readObject() instanceof Object) {
-			return connThread.in.readObject();	
+		System.out.println("Works");
+		if(connThread.in.readObject() instanceof Object) 
+		{
+			System.out.println("Works");
+			return connThread.in.readObject();
 		}
-		
-		else {
+		else 
+		{
 			return null;
 		}
 	}
@@ -52,7 +54,7 @@ public abstract class NetworkConnection {
 	protected abstract String getIP();
 	protected abstract int getPort();
 
-	private class ConnectionThread extends Thread
+	public class ConnectionThread extends Thread
 	{
 		private Socket socket;
 		private ObjectOutputStream out;

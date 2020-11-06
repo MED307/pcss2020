@@ -56,13 +56,10 @@ public class ClientController extends Controller implements Initializable{
 			invalidLoginTxt.setText("invalidLoginTxt");															// Set display error text
 			invalidLoginTxt.setVisible(true);																	// Show Error text
 		}
-		
-		else if (userName != null && passWord != null) {														// If fields are not empty
-			try {
-							
-				getConnection().send(userData);																	// Sends the userdata to server
+		else if (userName != null && passWord != null) {	 													// If fields are not empty
+			try {			
+				getConnection().send(userData);															// Sends the userdata to server
 				Object received = getConnection().receive();													// recieve object
-				
 				if(received instanceof User) {																	// If its of object: user
 					getConnection().receive();																	
 					try {
@@ -72,6 +69,7 @@ public class ClientController extends Controller implements Initializable{
 						e.printStackTrace();
 					}
 				}
+				System.out.println("Works");
 				
 			} catch (Exception e1) {
 				e1.printStackTrace();

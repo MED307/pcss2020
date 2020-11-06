@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class UserPopUp {
 	
-	private NetworkConnection connection;
+	private Connection connection;
 	
 	public void displayUser(String title, String FXML) throws IOException
 	{
@@ -33,11 +33,11 @@ public class UserPopUp {
 
 	}
 
-	public NetworkConnection getConnection() {
+	public Connection getConnection() {
 		return connection;
 	}
 
-	public void setConnection(NetworkConnection connection) {
+	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
 	

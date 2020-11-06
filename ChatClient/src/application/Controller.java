@@ -14,10 +14,10 @@ import javafx.stage.Stage;
 public class Controller {
 	
 	private User user;
-	private NetworkConnection connection;
+	private Connection connection;
 	
 	// Method for changing a scene
-	public void changeScene(ActionEvent event, String FXML, User user, NetworkConnection connection) throws IOException
+	public void changeScene(ActionEvent event, String FXML, User user, Connection connection) throws IOException
 	{
 		FXMLLoader loader = new FXMLLoader();														 
 		loader.setLocation(getClass().getResource(FXML));
@@ -46,7 +46,7 @@ public class Controller {
 	}
 	
 	// Method for changing a scene with mouse event
-	public void changeScene(MouseEvent event, String FXML, User user, NetworkConnection connection) throws IOException
+	public void changeScene(MouseEvent event, String FXML, User user, Connection connection) throws IOException
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(FXML));
@@ -84,12 +84,12 @@ public class Controller {
 	}
 
 
-	public NetworkConnection getConnection() {
+	public Connection getConnection() {
 		return connection;
 	}
 
 
-	public void setConnection(NetworkConnection connection) {
+	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
 }

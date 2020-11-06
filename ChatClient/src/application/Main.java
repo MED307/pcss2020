@@ -1,5 +1,8 @@
 package application;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +17,7 @@ public class Main extends Application {
 	// Initializing variables
 	private boolean isServer = false;														// Boolean to server/client test. 
 	
-	private NetworkConnection connection = createClient(); 									// Network connection check return form method
+	private Connection connection;								// Network connection check return form method
 	
 	
 	// Start that creates the primary stage
@@ -25,7 +28,8 @@ public class Main extends Application {
 			loader.setLocation(getClass().getResource("Client.fxml"));									// Uses the resources of the Client.fxml file
 			AnchorPane root = (AnchorPane)loader.load();												// 
 			Controller controller = (Controller) loader.getController();								// gets the controller from loader
-			controller.setConnection(this.connection);													// Sets connection
+			connection = createClient();
+			controller.setConnection(connection);										// Sets connection
 			Scene login = new Scene(root);																// Sets the first scene to login.
 			login.getStylesheets().add(getClass().getResource("application.css").toExternalForm());		// Adds the .css file
 			primaryStage.setScene(login);																// Sets the stage scene to login
@@ -37,23 +41,10 @@ public class Main extends Application {
 		}
 	}
 	
-	@Override
-	public void init() throws Exception {
-		connection.startConnection();
-	}
-	
-	public void stop() throws Exception {
-		connection.closeConnection();
-	}
-	
 	// Method for creating a client connection
-	private ClientConnection createClient() {
-		return new ClientConnection("127.0.0.1", 55555, data -> {									// Sets client connection to ip and port
-			Platform.runLater(()-> {
-				
-				System.out.println("Create Client Test");											// Sys write for debug
-			});
-		});
+	private Connection createClient() throws UnknownHostException, IOException {
+		System.out.println("Done");
+		return new Connection("localhost",55555);
 	}
 	
 
