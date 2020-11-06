@@ -13,8 +13,8 @@ public class Connection {
 	Socket socket;
 	private ConnectionThread connThreadOut;
 	private ConnectionThread connThreadIn;
-	Serializable received;
-	Object sendObj;
+	Object received;
+	Object sendObj = null;
 	
 	Connection(String host, int port) throws UnknownHostException, IOException 
 	{
@@ -30,7 +30,7 @@ public class Connection {
 	
 	public void send(Object obj) 
 	{
-		sendObj = obj;
+		connThreadOut.send(obj);
 	}
 	
 	public Object receive() throws ClassNotFoundException, IOException 
@@ -54,7 +54,7 @@ public class Connection {
 		{
 			System.out.println("Running");
 			try {
-				if(!isOut) {
+				if(isOut) {
 					out = new ObjectOutputStream(socket.getOutputStream());
 				} 
 				else
@@ -76,22 +76,23 @@ public class Connection {
 					} 
 					else
 					{
-						if (sendObj != null)
-						{
-							out.writeObject(sendObj);
-							sendObj = null;
-						}
+
+							//out.writeObject(sendObj);
 					}
 				}
 				catch(Exception e) 
 				{
 					e.printStackTrace();
-					try {
-						socket.close();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 				}
+			}
+		}
+		
+		public void send(Object obj) 
+		{
+			try {
+				out.writeObject(obj);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}

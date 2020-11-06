@@ -44,6 +44,8 @@ public class ClientController extends Controller implements Initializable{
 	
 	private ArrayList<String> userData = new ArrayList<>();
 	
+	Object received;
+	
 	// Method for loggin in
 	public void login(ActionEvent event)
 	{
@@ -57,11 +59,17 @@ public class ClientController extends Controller implements Initializable{
 			invalidLoginTxt.setVisible(true);																	// Show Error text
 		}
 		else if (userName != null && passWord != null) {	 													// If fields are not empty
-			try {			
+			try {
+				userData.add(userName);
+				userData.add(passWord);
 				getConnection().send(userData);															// Sends the userdata to server
-				Object received = getConnection().receive();													// recieve object
-				if(received instanceof User) {																	// If its of object: user
-					getConnection().receive();																	
+				
+				while(received == null) {
+					received = getConnection().receive();												// receive object
+				}
+				
+				if(received instanceof User) {															// If its of object: user															
+					setUser((User)received);
 					try {
 						changeScene(event, "ChatSelector.fxml", getUser(), getConnection());					// Change scene to chat selection as user.
 					} catch (IOException e) {

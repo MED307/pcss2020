@@ -55,25 +55,25 @@ public class ChatSelectorController extends Controller implements Initializable{
 		           try {
 		        	   
 		        	   try {
-						getConnection().send(currentItemSelected);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+		        		   getConnection().send(currentItemSelected);
+		        	   } catch (Exception e) {
+		        		   e.printStackTrace();
+		        	   }
 		        	   
 		        	   Object requested = null;
+		        	   
 		        	   while (!(requested instanceof Chatroom)) {
 		        		   try {
-							requested = getConnection().receive();
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}	   
+		        			   requested = getConnection().receive();
+		        		   } catch (Exception e) {
+		        			   e.printStackTrace();
+		        		   }   
 		        	   }
+		        	   
 		        	   getUser().setCurrentChatRoom((Chatroom)requested);
 		        	   changeScene(click, "Chat.fxml", getUser(), getConnection());
+		        	   
 		           } catch (IOException e) {
-					// TODO Auto-generated catch block
 		        	   e.printStackTrace();
 		           }
 		        }
@@ -103,12 +103,13 @@ public class ChatSelectorController extends Controller implements Initializable{
 		ArrayList<String> outcome = pop.displayChatroom("new chatroom", "PopUps/newChatroom.fxml");
 		String roomName = outcome.get(0);
 		ArrayList<String> newChatUser = new ArrayList<>();
-		for (int i = 1; i < outcome.size()-1; i++) {
+		for (int i = 1; i < outcome.size(); i++) {
 			newChatUser.add(outcome.get(i));
 		}
 
 		Chatroom ctm = new Chatroom(getUser(),roomName, newChatUser);
-		listview.getItems().add(roomName);
+		System.out.println(newChatUser);
+		listview.getItems().add(ctm.getChatId());
 		try {
 			getConnection().send(ctm);
 		} catch (Exception e) {

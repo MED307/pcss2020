@@ -43,21 +43,26 @@ public class NewUserController extends Controller implements Initializable{
 		else if (this.newUserNameInput.getText() != null && this.newUserNameInput.getText() != null) 
 		{
 			try {
-				getConnection().send(newUserNameInput.getText());
 				
-				boolean nameTaken = false;
-
-				if (nameTaken != true ) {
+//				getConnection().send(newUserNameInput.getText());
+//				Object object = null;
+//				while(object == null)
+//				{
+//					object = getConnection().receive();
+//				}
+//				boolean nameTaken = (boolean) object;
+//
+//				if (nameTaken == false ) {
 					System.out.println("User saved: " + this.newUserNameInput.getText()+ " | " + this.newPassWordInput.getText());
 					User user = new User(this.newUserNameInput.getText(),this.newPassWordInput.getText());
 					getConnection().send(user);
 					((Stage)(((Button)event.getSource()).getScene().getWindow())).close(); 
-				}
-				
-				else {
-					popErrorNameTxt.setText("Username already taken");
-					popErrorNameTxt.setVisible(true);
-				}
+//				}
+//				
+//				else {
+//					popErrorNameTxt.setText("Username already taken");
+//					popErrorNameTxt.setVisible(true);
+//				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();

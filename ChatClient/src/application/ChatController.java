@@ -72,7 +72,15 @@ public class ChatController extends Controller implements Initializable{
 			
 			while(isChatting) {																	// While bool is true, loop to keep running while chat is active
 				try {
-					chatDisplayList.getItems().add((ChatMessage)getConnection().receive());		// Recieves new items from server to list
+					Object object = getConnection().receive();
+					if (object instanceof ChatMessage) 
+					{
+						ChatMessage chatMessage = (ChatMessage) object;
+						if (chatDisplayList.getItems().get(chatDisplayList.getItems().size()).getMessage().compareTo(chatMessage.getMessage()) != 0)
+						{
+							chatDisplayList.getItems().add(chatMessage);
+						}
+					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -81,7 +89,7 @@ public class ChatController extends Controller implements Initializable{
 		}
 	};
 	
-	private String roomID = getUser().getCurrentChatRoom().getChatId();							// Sets the roomID
+	//private String roomID = getUser().getCurrentChatRoom().getChatId();							// Sets the roomID
 	
 	// Method for loading chat
 	public void loadChat() 
@@ -90,6 +98,7 @@ public class ChatController extends Controller implements Initializable{
 		{
 			addMessage(e);																		// Runs the  addMessage method
 		}
+		chatThread.start();
 	}
 	
 
@@ -133,18 +142,14 @@ public class ChatController extends Controller implements Initializable{
 	// 
 	public void addMessage(ChatMessage msg)
 	{
-		try {
-			getConnection().send(msg);	//Sends the ChatMessage object to server.
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	//	this.chatDisplayList.getItems().add(msg); // Displays the mesage on listView
+		this.chatDisplayList.getItems().add(msg); // Displays the mesage on listView
 	}
 	
 	
 	// Method to go back to chat server list.
 	public void goBack(ActionEvent event)
 	{
+		isChatting =  false;
 		try {
 			changeScene(event, "ChatSelector.fxml", getUser(), getConnection());	//Change scene to chat room selection
 		} catch (IOException e) {

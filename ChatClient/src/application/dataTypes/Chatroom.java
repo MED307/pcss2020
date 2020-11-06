@@ -19,7 +19,7 @@ public class Chatroom implements Serializable {
 	
 	// An ArrayList that stores all of the users in the chatroom
 	private ArrayList<String> users = new ArrayList<>();
-	
+
 	//an arrayList of chat messages
 	private ArrayList<ChatMessage> messages = new ArrayList<>();
 	
@@ -37,6 +37,7 @@ public class Chatroom implements Serializable {
 		// A random integer is assigned as the id for the chatroom
 		Random rd = new Random();
         this.chatId = Integer.toString(rd.nextInt());
+        System.out.print(this.chatId);
 	}
 	
 	// Method that returns the name of the chatroom
@@ -83,4 +84,12 @@ public class Chatroom implements Serializable {
     public void addMessage(ChatMessage message) {
         this.messages.add(message);
     }
+    
+	public ArrayList<String> getUsers() {
+		return users;
+	}
+
+	public void setUsers(ArrayList<String> users) {
+		this.users = users;
+	}
 }

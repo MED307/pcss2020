@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -10,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="10.0" minWidth="10.0" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewChatroomController">
+<AnchorPane minHeight="10.0" minWidth="10.0" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewChatroomController">
    <children>
       <ImageView fitHeight="158.0" fitWidth="300.0" layoutY="-1.0">
          <image>
@@ -32,7 +38,7 @@
          </cursor></Button>
       <Text fx:id="infoText" fill="#d3e156" layoutX="22.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Must include the names of any users you wish to add to the chat" textAlignment="CENTER" wrappingWidth="167.21875" />
       <Text fx:id="popErrorRoomTxt" fill="#d30027" layoutX="16.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error: Room name already exist" textAlignment="CENTER" visible="false" wrappingWidth="167.21875" />
-      <TextField id="cssinputDesiredUsers" fx:id="desiredUsers" layoutX="99.0" layoutY="72.0" prefHeight="25.0" prefWidth="176.0" promptText="Sperate by &quot;, &quot; comma space" style="-fx-background-color: #3e3a42;" styleClass="fillColor" stylesheets="@../application.css" />
+      <TextField id="cssinputDesiredUsers" fx:id="desiredUser" layoutX="99.0" layoutY="72.0" prefHeight="25.0" prefWidth="176.0" promptText="Sperate by &quot;, &quot; comma space" style="-fx-background-color: #3e3a42;" styleClass="fillColor" stylesheets="@../application.css" />
       <Label layoutX="18.0" layoutY="76.0" text="Desired Users*" textFill="#8b7b8d" />
    </children>
 </AnchorPane>
