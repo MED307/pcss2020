@@ -69,23 +69,23 @@ public class ChatController extends Controller implements Initializable{
 		public void run() {
 			isChatting = true;																	// Sets a bool true
 			System.out.println("Test thread");
+			ChatMessage c = new ChatMessage(" ", " ", getUser().getCurrentChatRoom().getChatId());
+			chatDisplayList.getItems().add(c);
 			
-			while(isChatting) {																	// While bool is true, loop to keep running while chat is active
+			while(!chatThread.interrupted()) {																	// While bool is true, loop to keep running while chat is active
 				try {
 					Object object = getConnection().receive();
-					if (object instanceof ChatMessage) 
+					if (object instanceof ChatMessage && !((ChatMessage) object).equals(chatDisplayList.getItems().get(chatDisplayList.getItems().size()-1))) 
 					{
 						ChatMessage chatMessage = (ChatMessage) object;
-						if (chatDisplayList.getItems().get(chatDisplayList.getItems().size()).getMessage().compareTo(chatMessage.getMessage()) != 0)
-						{
-							chatDisplayList.getItems().add(chatMessage);
-						}
+						chatDisplayList.getItems().add(chatMessage);
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+			System.out.println("Done");
 		}
 	};
 	
@@ -122,9 +122,9 @@ public class ChatController extends Controller implements Initializable{
 		
 		if (message.getMessage() != null) { 								// If the text field is not empty.
 			chatField.clear();												// Clears text field
-			this.chatDisplayList.getItems().add(message);					// Adds message to chat 
+			//this.chatDisplayList.getItems().add(message);					// Adds message to chat 
 			chatDisplayList.scrollTo(chatDisplayList.getItems().size());	// Scrolls to the bottom
-			getUser().getCurrentChatRoom().addMessage(message);				// 
+			//getUser().getCurrentChatRoom().addMessage(message);				// 
 			try {
 				getConnection().send(message);								// Sends the message to server.
 			} catch (Exception e) {
@@ -149,7 +149,7 @@ public class ChatController extends Controller implements Initializable{
 	// Method to go back to chat server list.
 	public void goBack(ActionEvent event)
 	{
-		isChatting =  false;
+		chatThread.interrupt();
 		try {
 			changeScene(event, "ChatSelector.fxml", getUser(), getConnection());	//Change scene to chat room selection
 		} catch (IOException e) {

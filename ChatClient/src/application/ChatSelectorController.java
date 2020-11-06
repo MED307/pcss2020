@@ -59,10 +59,10 @@ public class ChatSelectorController extends Controller implements Initializable{
 		        	   } catch (Exception e) {
 		        		   e.printStackTrace();
 		        	   }
-		        	   
+		        	   System.out.print("Beginning");
 		        	   Object requested = null;
-		        	   
 		        	   while (!(requested instanceof Chatroom)) {
+		        		   System.out.print("Changing");
 		        		   try {
 		        			   requested = getConnection().receive();
 		        		   } catch (Exception e) {
@@ -71,6 +71,7 @@ public class ChatSelectorController extends Controller implements Initializable{
 		        	   }
 		        	   
 		        	   getUser().setCurrentChatRoom((Chatroom)requested);
+		        	   System.out.print("Changed");
 		        	   changeScene(click, "Chat.fxml", getUser(), getConnection());
 		        	   
 		           } catch (IOException e) {
@@ -110,6 +111,7 @@ public class ChatSelectorController extends Controller implements Initializable{
 		Chatroom ctm = new Chatroom(getUser(),roomName, newChatUser);
 		System.out.println(newChatUser);
 		listview.getItems().add(ctm.getChatId());
+		getUser().addChatRoom(ctm.getChatId());
 		try {
 			getConnection().send(ctm);
 		} catch (Exception e) {

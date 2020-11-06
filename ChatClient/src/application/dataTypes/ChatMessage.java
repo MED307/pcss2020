@@ -45,6 +45,28 @@ public class ChatMessage implements Serializable{
     public void setRoomID(String roomID) {
         this.roomID = roomID;
     }
+    
+    @Override
+    public boolean equals(Object m)
+    {
+    	if(m instanceof ChatMessage)
+    	{
+    		if (((ChatMessage)m).message.compareTo(this.message) == 0 && ((ChatMessage)m).roomID.compareTo(this.roomID) == 0 && ((ChatMessage)m).userID.compareTo(this.userID) == 0)
+    		{
+    			return true;
+    		}
+    		else
+    		{
+    			return false;
+    		}
+    		
+    	}
+    	else
+    	{
+    		return false;
+    	}
+		
+    }
 
 
 }

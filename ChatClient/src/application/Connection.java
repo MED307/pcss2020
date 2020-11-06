@@ -35,7 +35,8 @@ public class Connection {
 	
 	public Object receive() throws ClassNotFoundException, IOException 
 	{
-		return received;
+			return received;
+
 	}
 	
 	private class ConnectionThread extends Thread
@@ -73,12 +74,8 @@ public class Connection {
 					if(!isOut) {
 						Serializable data = (Serializable) in.readObject();
 						received = data;
-					} 
-					else
-					{
 
-							//out.writeObject(sendObj);
-					}
+					} 
 				}
 				catch(Exception e) 
 				{
