@@ -19,75 +19,76 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="300.0" minWidth="500.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ChatController">
+<!-- Anchor pane for chatrooms, these contain same dimensions as previous ancor -->
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ChatController">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="1000.0">
+      <ImageView fitHeight="600.0" fitWidth="1000.0"> <!-- Sets an image view of the same size as the anchors prefered dimensions to function as an image background -->
          <image>
-            <Image url="@../../assets/UI/bgplace.png" />
+            <Image url="@../../assets/UI/bgplace.png" />	<!-- Image path gets loaded -->
          </image>
       </ImageView>
-      <ImageView fitHeight="556.0" fitWidth="943.0" layoutX="29.0" layoutY="22.0">
+      <ImageView fitHeight="556.0" fitWidth="943.0" layoutX="29.0" layoutY="22.0">	<!-- ImageView that serves as the chat window wrapper -->
          <image>
-            <Image url="@../../assets/UI/body.png" />
+            <Image url="@../../assets/UI/body.png" />	<!-- Image path gets loaded -->
          </image>
       </ImageView>
-      <ImageView fitHeight="71.0" fitWidth="943.0" layoutX="29.0" layoutY="507.0">
+      <ImageView fitHeight="71.0" fitWidth="943.0" layoutX="29.0" layoutY="507.0">	<!-- ImageView for chat area, to match the radious of wrapper -->
          <image>
-            <Image url="@../../assets/UI/chatbar.png" />
+            <Image url="@../../assets/UI/chatbar.png" />	<!-- Image path gets loaded -->
          </image>
       </ImageView>
-      <Button id="cssLogoutbtn" fx:id="exitChatbtn" graphicTextGap="5.0" layoutX="74.0" layoutY="55.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: none;" styleClass="btn" stylesheets="@application.css" text="Room-list" textFill="#a154e5">
+      <Button id="cssLogoutbtn" fx:id="exitChatbtn" graphicTextGap="5.0" layoutX="74.0" layoutY="55.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: none;" styleClass="btn" stylesheets="@application.css" text="Room-list" textFill="#a154e5"> <!-- Button for going back to chat selection, extended styling in application.css -->
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND" /> <!-- Change cursor on hover -->
          </cursor>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets left="-30.0" />
+            <Insets left="-30.0" /> <!-- Adds negative padding from left to better fit allignment in button -->
          </padding>
-         <graphic>
-            <ImageView>
+         <graphic>	<!-- Uses graphic on button -->
+            <ImageView> <!-- creates image view -->
                <image>
-                  <Image url="@../../assets/UI/logout.png" />
+                  <Image url="@../../assets/UI/logout.png" /> 	<!-- Image path gets loaded -->
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="roomNametxt" fill="WHITE" layoutX="426.0" layoutY="64.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" text="*Room Name*" textAlignment="CENTER" wrappingWidth="149.0">
+      <Text fx:id="roomNametxt" fill="WHITE" layoutX="426.0" layoutY="64.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" text="*Room Name*" textAlignment="CENTER" wrappingWidth="149.0">	<!-- Text that displays name of the room -->
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-      <ListView id="cssChatDisplay" fx:id="chatDisplayList" layoutX="43.0" layoutY="104.0" prefHeight="380.0" prefWidth="912.0" style="-fx-background-color: none;" stylesheets="@application.css">
+      <ListView id="cssChatDisplay" fx:id="chatDisplayList" layoutX="43.0" layoutY="104.0" prefHeight="380.0" prefWidth="912.0" style="-fx-background-color: none;" stylesheets="@application.css"> 	<!-- Chat list view, where chat messages are displayed. Extensive styling extended in application.css -->
          <styleClass>
-            <String fx:value="list-view" />
-            <String fx:value="list-cell" />
+            <String fx:value="list-view" />	<!-- sets stylling class in css for ".list-view" -->
+            <String fx:value="list-cell" />	<!-- sets styling class in css for ".list-cell" -->
          </styleClass>
       </ListView>
-      <TextArea id="chatbox" fx:id="chatField" layoutX="29.0" layoutY="507.0" onKeyPressed="#sendField" onKeyTyped="#sendField" prefHeight="71.0" prefWidth="877.0" promptText="Write message..." scrollTop="1.0" style="-fx-background-color: none;" stylesheets="@application.css" wrapText="true">
+      <TextArea id="chatbox" fx:id="chatField" layoutX="29.0" layoutY="507.0" onKeyPressed="#sendField" onKeyTyped="#sendField" prefHeight="71.0" prefWidth="877.0" promptText="Write message..." scrollTop="1.0" style="-fx-background-color: none;" stylesheets="@application.css" wrapText="true">	<!-- Text area for typing chat messages in  -->
          <padding>
             <Insets left="5.0" top="5.0" />
          </padding>
       </TextArea>
-      <Text fx:id="connectedUserstxt" fill="#3e3a42" layoutX="42.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected users:">
+      <Text fx:id="connectedUserstxt" fill="#3e3a42" layoutX="42.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected users:">	<!-- Text for showing which users are connected to the chatroom -->
          <font>
             <Font size="13.0" />
          </font>
       </Text>
-      <Button id="cssSendbtn" fx:id="sendbtn" contentDisplay="GRAPHIC_ONLY" layoutX="907.0" layoutY="517.0" mnemonicParsing="false" onAction="#sendbtn" style="-fx-background-color: none;" text="Send">
+      <Button id="cssSendbtn" fx:id="sendbtn" contentDisplay="GRAPHIC_ONLY" layoutX="907.0" layoutY="517.0" mnemonicParsing="false" onAction="#sendbtn" style="-fx-background-color: none;" text="Send"> <!-- A button to send a message, that only consist of a graphic component -->
          <graphic>
-            <ImageView id="sendImage" fx:id="imageSend">
+            <ImageView id="sendImage" fx:id="imageSend"> <!-- imageview for send button  -->
                <image>
-                  <Image url="@../../assets/UI/sendArrow.png" />
+                  <Image url="@../../assets/UI/sendArrow.png" /> <!-- Image path that gets loaded  -->
                </image>
             </ImageView>
          </graphic>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND" /> <!-- Change cursor on hover -->
          </cursor>
       </Button>
    </children>

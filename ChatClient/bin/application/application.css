@@ -1,38 +1,42 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
-
+/* class for fill color, for styling */
 .fillColor {
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
-
+/* Change on hover on class.btn */
 .btn:hover {
     -fx-text-fill: #8947c3;
 }
 
+/* Change on mouse pressed on class.btn */
 .btn:pressed {
     -fx-opacity: 0.7;
 }
 
-
+/* Styling for class .list-view and .list-cell */
 .list-view .list-cell {
     -fx-background-color: none;
     -fx-text-fill: #a154e5;
 
 }
 
+/* Syling for class .whitebtn */
 .whitebtn {
 	-fx-text-fill: white;
 }
 
+/* Change on hover for class .whitebtn  */
 .whitebtn:hover {
 	-fx-opacity: 0.7;
 }
 
+/* Change on mouse press on class .whitebtn */
 .whitebtn:pressed {
     -fx-opacity: 0.5;
 }
 
+/* changes to class .list-cell if focused, selected and filled */
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
     -fx-background-color: none;
     -fx-font-weight: bold;
@@ -40,19 +44,20 @@
     -fx-color: #b173ea;
 }
 
+/* changes to labels in class .chatCell */
 .chatCell .label{
 	-fx-wrap-text: true;
 	-fx-overflow-wrap: break-word;
 	
 }
 
+/* Syling for id=cssRoomList */
 #cssRoomList {
 	-fx-background-color: none;
     -fx-text-fill: red;
 }
 
-
-
+/* Styling for scroolbar buttons related items from id=cssRoomList */
 #cssRoomList .scroll-bar:vertical .decrement-button, .increment-button {
     -fx-background-color: none;
     -fx-background-radius : 0.0em;
@@ -60,6 +65,7 @@
     -fx-padding: 0.0 0.15em; 
 }
 
+/* Styling for scroolbar arrows related items from id=cssRoomList */
 #cssRoomList .scroll-bar:vertical .decrement-arrow, .increment-arrow {
 	-fx-background-color: none;
     -fx-opacity: 0;
@@ -67,26 +73,32 @@
     -fx-padding: 0.0 0.15em; 
 }
 
+
+/* Styling to vertical scroll for id=cssRoomList */
 #cssRoomList .scroll-bar:vertical {
 	-fx-pref-width: 0.1em;
 } 
 
+/* Styling for vertical scrollbar, track and background for id=cssRoomList */
 #cssRoomList .scroll-bar:vertical .track, .track-background {
     -fx-background-color: #3d3942;
     -fx-border-color: none;
 
 }
 
+/* Syling of scrool thumb for id=cssRoomList  */
 #cssRoomList .scroll-bar:vertical .thumb {
     -fx-background-color: #252327;
     -fx-background-insets: -3, 0, 0;
     -fx-background-radius: 0.4em;
 }
 
+/* Part removal of horizontal scroll for id=cssRoomList */
 #cssRoomList .scroll-bar:horizontal {
 	-fx-display: none;
 }
 
+/* Styling for scroolbar buttons related items from id=cssChatDisplay */
 #cssChatDisplay .scroll-bar:vertical .decrement-button, .increment-button {
     -fx-background-color: none;
     -fx-background-radius : 0.0em;
@@ -94,16 +106,19 @@
     -fx-padding: 0.0 0.15em; 
 }
 
+/* Styling to vertical scroll for id=cssChatDisplay */
 #cssChatDisplay .scroll-bar:vertical {
 	-fx-pref-width: 0.1em;
 } 
 
+/* Syling of scrool thumb for id=cssChatDisplay  */
 #cssChatDisplay .scroll-bar:vertical .thumb {
     -fx-background-color: #171619;
     -fx-background-insets: -3, 0, 0;
     -fx-background-radius: 0.4em;
 }
 
+/* Styling for scroolbar arrows related items from id=cssChatDisplay */
 #cssChatDisplay .scroll-bar:vertical .decrement-arrow, .increment-arrow {
 	-fx-background-color: none;
     -fx-opacity: 0;
@@ -111,25 +126,29 @@
     -fx-padding: 0.0 0.15em; 
 }
 
+/* Styling for vertical scrollbar, track and background for id=cssChatDisplay */
 #cssChatDisplay scroll-bar, .track, track-background {
 
  	-fx-background-radius: 2em;
 }
 
+/* Part removal of horizontal scroll for id=cssChatDisplay */
 #cssChatDisplay .scroll-bar:horizontal {
 	-fx-scale-x: 0;	
 }
 
+/* Removal of scroll cornering from listview id=cssChatDisplay */
 #cssChatDisplay .corner {
 	-fx-background-color: none;
 }
 
+/* Styling of id=cssChatDisplay */
 #cssChatDisplay {
 	-fx-background-color: none;
     -fx-text-fill: #a154e5;
 }
 
-
+/* styling of text-area related to id=chatbox */
 #chatbox .text-area, .text-area:focused, .text-area .viewport, .text-area .content, .text-area:focused .content, .panel {
     -fx-background-color: none;
     -fx-text-fill: white;
@@ -137,17 +156,20 @@
     
 } 
 
+/* Change on hover on id=sendbutton */
 #cssSendbtn:hover {
     -fx-graphic: url("../../assets/UI/sendArrowD.png");
   
 }
 
+/* Change on mouse pressed on id=sendbutton */
 #cssSendbtn:pressed {
     -fx-graphic: url("../../assets/UI/sendArrowD.png");
     -fx-opacity: 0.7;
   
 }
 
+/* Change on hover on id=Logoutbtn */
 #cssLogoutbtn:hover {
 	-fx-graphic: url("../../assets/UI/logoutD.png");
 }

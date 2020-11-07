@@ -5,14 +5,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<!-- Anchor pane set for chat messages sets a min and pref width but keeps height open as "message" can vary -->
 <AnchorPane fx:id="pane" minHeight="25.0" minWidth="700.0" prefWidth="880.0" style="-fx-background-color: none;" styleClass="chatCell" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="userName" alignment="BASELINE_LEFT" layoutX="3.0" layoutY="2.0" prefHeight="21.0" prefWidth="291.0" text="Name:" textFill="#a154e5">
+      <Label fx:id="userName" alignment="BASELINE_LEFT" layoutX="3.0" layoutY="2.0" prefHeight="21.0" prefWidth="291.0" text="Name:" textFill="#a154e5"> <!-- Text styling for username -->
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="message" layoutX="3.0" layoutY="19.0" maxHeight="900.0" maxWidth="-Infinity" prefWidth="861.0" text="Message" textFill="#8b7b8d">
+      <Label fx:id="message" layoutX="3.0" layoutY="19.0" maxHeight="900.0" maxWidth="-Infinity" prefWidth="861.0" text="Message" textFill="#8b7b8d"> <!-- Chat message text, with specific dimensions to allow a large varying size of content-->
          <font>
             <Font size="14.0" />
          </font>
@@ -20,7 +21,7 @@
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets bottom="3.0" />
+            <Insets bottom="3.0" />	<!-- Adds minor padding to bottom to guarentee certain distance between cells, regardless of size. -->
          </padding></Label>
    </children>
 </AnchorPane>
