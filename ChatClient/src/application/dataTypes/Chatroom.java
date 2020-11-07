@@ -33,6 +33,7 @@ public class Chatroom implements Serializable {
 		this.users.addAll(chatUsers);
 		this.creator = user;
 		this.name = name;
+		this.users.add(getCreatorName());
 		
 		// A random integer is assigned as the id for the chatroom
 		Random rd = new Random(1000000);
@@ -60,19 +61,7 @@ public class Chatroom implements Serializable {
 		
 	}
     
-    // Method that is used to display a message
-	public String displayMessage(User user, String message) {
-		
-		return user.getUsername() + ": " + message;
-		
-	}
 	
-	// Method that is used to send a message
-	public void sendMessage(String message) {
-		
-		//chatHistory.add(displayMessage());
-		
-	}
 	public ArrayList<ChatMessage> getMessages() {
         return messages;
     }
