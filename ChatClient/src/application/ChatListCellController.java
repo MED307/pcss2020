@@ -50,7 +50,7 @@ public class ChatListCellController extends ListCell<ChatMessage>{
 
             }
         	
-        	userName.setText(msg.getUser() + ": ");
+        	userName.setText(msg.getUser().split("(?<=\\D)(?=\\d)")[0] + ": ");
         	message.setText(msg.getMessage());
         	
         	setGraphic(pane);

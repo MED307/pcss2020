@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.dataTypes.ChatMessage;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -64,7 +66,6 @@ public class ChatController extends Controller implements Initializable{
 	
 	private boolean isChatting;
 	
-	
 	private Thread chatThread = new Thread() {													// A Thread for updating the chat, looking for new imputs from server to display. 
 		public void run() {
 			isChatting = true;																	// Sets a bool true
@@ -75,10 +76,12 @@ public class ChatController extends Controller implements Initializable{
 			while(!chatThread.interrupted()) {																	// While bool is true, loop to keep running while chat is active
 				try {
 					Object object = getConnection().receive();
-					if (object instanceof ChatMessage && !((ChatMessage) object).equals(chatDisplayList.getItems().get(chatDisplayList.getItems().size()-1))) 
+					if (object instanceof ChatMessage && !((ChatMessage) object).equals(chatDisplayList.getItems().get(chatDisplayList.getItems().size()-1)) && ((ChatMessage) object).getRoomID().compareTo(getUser().getCurrentChatRoom().getChatId()) == 0) 
 					{
 						ChatMessage chatMessage = (ChatMessage) object;
-						chatDisplayList.getItems().add(chatMessage);
+						Platform.runLater(() ->chatDisplayList.getItems().add(chatMessage));
+						sleep(100);
+
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -88,8 +91,6 @@ public class ChatController extends Controller implements Initializable{
 			System.out.println("Done");
 		}
 	};
-	
-	//private String roomID = getUser().getCurrentChatRoom().getChatId();							// Sets the roomID
 	
 	// Method for loading chat
 	public void loadChat() 
