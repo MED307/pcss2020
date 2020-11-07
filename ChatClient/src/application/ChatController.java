@@ -39,7 +39,8 @@ public class ChatController extends Controller implements Initializable{
 		// TODO Auto-generated method stub
 		
 		chatDisplayList.setCellFactory(chatRoomListView -> new ChatListCellController());
-		EventHandler filter = new EventHandler<MouseEvent>()
+		
+		EventHandler<MouseEvent> filter = new EventHandler<MouseEvent>()
 			{
 		    	public void handle(MouseEvent event) {
 		    		event.consume();

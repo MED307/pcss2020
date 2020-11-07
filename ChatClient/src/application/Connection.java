@@ -14,7 +14,6 @@ public class Connection {
 	private ConnectionThread connThreadOut;
 	private ConnectionThread connThreadIn;
 	Object received;
-	Object sendObj = null;
 	
 	Connection(String host, int port) throws UnknownHostException, IOException 
 	{
