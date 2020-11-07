@@ -13,10 +13,6 @@ import javafx.scene.layout.AnchorPane;
 // Main class
 public class Main extends Application {
 	
-	
-	// Initializing variables
-	private boolean isServer = false;														// Boolean to server/client test. 
-	
 	private Connection connection;								// Network connection check return form method
 	
 	
