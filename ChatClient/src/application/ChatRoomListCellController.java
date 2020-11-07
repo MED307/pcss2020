@@ -1,15 +1,12 @@
-/*package application;
+package application;
 
-import java.io.IOException;
-
-import application.dataTypes.Chatroom;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 
-public class ChatRoomListCellController extends ListCell<Chatroom>{
+public class ChatRoomListCellController extends ListCell<String>{
 
 	@FXML
 	Label chatRoomName;
@@ -23,11 +20,11 @@ public class ChatRoomListCellController extends ListCell<Chatroom>{
 	FXMLLoader mLLoader;
 	
 	@Override
-    protected void updateItem(Chatroom chatroom, boolean empty) 
+    protected void updateItem(String string, boolean empty) 
 	{
-        super.updateItem(chatroom, empty);
+        super.updateItem(string, empty);
         
-        if(empty || chatroom == null) 
+        if(empty || string == null) 
         {
 
             setText(null);
@@ -36,23 +33,8 @@ public class ChatRoomListCellController extends ListCell<Chatroom>{
         } 
         else 
         {
-        	if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("ChatRoomListCell.fxml"));
-                mLLoader.setController(this);
-
-                try {
-                    mLLoader.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        	
-        	chatRoomName.setText(chatroom.getChatroomName());
-        	chatRoomUsers.setText(chatroom.getUsersAsString());
-        	
-        	setGraphic(pane);
-        	
+        	setText(string.split("(?<=\\D)(?=\\d)")[0]);
         }
-	}
-}*/
+        	
+       }
+}

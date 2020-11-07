@@ -49,7 +49,6 @@ public class ClientController extends Controller implements Initializable{
 	// Method for loggin in
 	public void login(ActionEvent event)
 	{
-		
 		this.userName = userNameInput.getText();
 		this.passWord = passWordInput.getText();
 		
@@ -64,7 +63,7 @@ public class ClientController extends Controller implements Initializable{
 				userData.add(passWord);
 				getConnection().send(userData);															// Sends the userdata to server
 				
-				while(received == null) {
+				while(!(received instanceof User)) {
 					received = getConnection().receive();												// receive object
 				}
 				

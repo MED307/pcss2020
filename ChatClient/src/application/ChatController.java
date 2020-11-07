@@ -64,26 +64,21 @@ public class ChatController extends Controller implements Initializable{
 	@FXML
 	private Text roomNametxt;
 	
-	private boolean isChatting;
-	
 	private Thread chatThread = new Thread() {													// A Thread for updating the chat, looking for new imputs from server to display. 
-		public void run() {
-			isChatting = true;																	// Sets a bool true
-			System.out.println("Test thread");
-			if (chatDisplayList.getItems().size() == 0) {
-				ChatMessage c = new ChatMessage(" ", " ", getUser().getCurrentChatRoom().getChatId());
-				chatDisplayList.getItems().add(c);
-			}
+		public void run() {																	// Sets a bool true
 			
 			while(!chatThread.interrupted()) {																	// While bool is true, loop to keep running while chat is active
 				try {
 					Object object = getConnection().receive();
-					if (object instanceof ChatMessage && !((ChatMessage) object).equals(chatDisplayList.getItems().get(chatDisplayList.getItems().size()-1)) && ((ChatMessage) object).getRoomID().compareTo(getUser().getCurrentChatRoom().getChatId()) == 0) 
+					if (object instanceof ChatMessage)
 					{
-						ChatMessage chatMessage = (ChatMessage) object;
-						Platform.runLater(() ->chatDisplayList.getItems().add(chatMessage));
-						sleep(10);
-
+						if (chatDisplayList.getItems().size() == 0 || !((ChatMessage) object).equals(chatDisplayList.getItems().get(chatDisplayList.getItems().size()-1)) && ((ChatMessage) object).getRoomID().compareTo(getUser().getCurrentChatRoom().getChatId()) == 0) 
+						{
+							ChatMessage chatMessage = (ChatMessage) object;
+							Platform.runLater(() ->chatDisplayList.getItems().add(chatMessage));
+							sleep(10);
+	
+						}
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

@@ -43,7 +43,9 @@ public class ChatSelectorController extends Controller implements Initializable{
 	// Initialize, in which list view is selectable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-				
+		
+		listview.setCellFactory(chatRoomListView -> new ChatRoomListCellController());
+		
 		listview.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 		    @Override
@@ -89,7 +91,11 @@ public class ChatSelectorController extends Controller implements Initializable{
 	{
 		for(String i: this.getUser().getChatRooms())
 		{
-			listview.getItems().add(i);
+			if (listview.getItems().size() == 0 || i.compareTo(listview.getItems().get(listview.getItems().size()-1)) != 0)
+			{
+				listview.getItems().add(i);
+			}
+			
 		}
 	}
 	
