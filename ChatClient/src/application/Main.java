@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 // Main class
 public class Main extends Application {
 	
-	private Connection connection;								// Network connection check return form method
+	private Connection connection;																		// Network connection
 	
 	
 	// Start that creates the primary stage
@@ -25,7 +25,7 @@ public class Main extends Application {
 			AnchorPane root = (AnchorPane)loader.load();												// 
 			Controller controller = (Controller) loader.getController();								// gets the controller from loader
 			connection = createClient();
-			controller.setConnection(connection);										// Sets connection
+			controller.setConnection(connection);														// Sets connection
 			Scene login = new Scene(root);																// Sets the first scene to login.
 			login.getStylesheets().add(getClass().getResource("application.css").toExternalForm());		// Adds the .css file
 			primaryStage.setScene(login);																// Sets the stage scene to login
