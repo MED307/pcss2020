@@ -30,6 +30,7 @@ public class UserPopUp {
 		window.show();
 		Controller controller = (Controller) loader.getController();
 		controller.setConnection(connection);
+		window.setResizable(false);
 
 	}
 
@@ -51,11 +52,12 @@ public class UserPopUp {
         AnchorPane root = (AnchorPane)loader.load();
         Scene popUp = new Scene(root);
         popUp.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-
+        window.setResizable(false);
         window.setScene(popUp);
         window.setTitle(title);
         window.setMinWidth(250);
         window.showAndWait();
+
 
         if (FXML.compareTo("PopUps/newChatroom.fxml") == 0)
         {
