@@ -19,7 +19,7 @@
             <Image url="@../../../assets/UI/body.png" />			<!-- Path to the image location -->
          </image>
       </ImageView>
-      <TextField layoutX="76.0" layoutY="50.0" style="-fx-background-color: none;" />
+      <TextField layoutX="106.0" layoutY="49.0" prefHeight="2.0" prefWidth="149.0" style="-fx-background-color: none;" />
       <TextField id="inputLoginUsername" fx:id="newUserNameInput" layoutX="101.0" layoutY="49.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter Username" style="-fx-background-color: #3e3a42;" styleClass="fillColor" stylesheets="@../application.css" />
       <Label layoutX="22.0" layoutY="53.0" text="Username" textFill="#8b7b8d" />
       <Label layoutX="21.0" layoutY="82.0" text="Password" textFill="#8b7b8d" />
