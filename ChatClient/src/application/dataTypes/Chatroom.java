@@ -61,7 +61,7 @@ public class Chatroom implements Serializable {
 		
 	}
     
-	
+	//getters and setters
 	public ArrayList<ChatMessage> getMessages() {
         return messages;
     }
@@ -70,10 +70,13 @@ public class Chatroom implements Serializable {
         this.messages = messages;
     }
 
+    
+    //adds a message the the chatRoom arrayList
     public void addMessage(ChatMessage message) {
         this.messages.add(message);
     }
     
+    //getters and setters
 	public ArrayList<String> getUsers() {
 		return users;
 	}
@@ -82,11 +85,15 @@ public class Chatroom implements Serializable {
 		this.users = users;
 	}
 	
+	
+	//method for how to compare this object to another
 	@Override
 	public boolean equals(Object e) 
 	{
+		//checks if object is an instance of chatroom
 		if (e instanceof Chatroom)
 		{
+			//checks if the messages in the chatroom are the same
 			if (((Chatroom) e).getMessages().equals(this.getMessages()))
 			{
 				return true;

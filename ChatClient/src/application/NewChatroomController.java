@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 public class NewChatroomController extends Controller {
 	
+	// FXML Imports
 	@FXML
 	private Button createChatBtn;
 	
@@ -29,9 +30,10 @@ public class NewChatroomController extends Controller {
 	private String newChatUsers;
 	
 
-	
+	//method that runs when the user clicks on the createChatBtn
 	public void create(ActionEvent event)
 	{
+		//checks if chatName is empty if so display error
 		if (chatName.getText().trim().isEmpty()) {
 			System.out.println("Error");
 			infoText.setVisible(false);
@@ -39,6 +41,7 @@ public class NewChatroomController extends Controller {
 			popErrorRoomTxt.setVisible(true);
 		}
 		
+		//checks if desiredUser is empty if so display error
 		if (desiredUser.getText().trim().isEmpty()) {
 			System.out.println("Error");
 			infoText.setVisible(false);
@@ -47,10 +50,14 @@ public class NewChatroomController extends Controller {
 			
 		}
 		
+		//if both have text in them
 		else if (this.chatName.getText() != null && this.desiredUser.getText() != null) 
 		{
+			//sets the NewChatName and NewChatUsers to the text inputed
 			this.setNewChatName(this.chatName.getText());
 			this.setNewChatUsers(this.desiredUser.getText());
+			
+			//closed the popup window
 			((Stage)(((Button)event.getSource()).getScene().getWindow())).close(); 
 			
 		}
@@ -59,12 +66,15 @@ public class NewChatroomController extends Controller {
 
 	}
 	
+	//display if the room already exists (Not implemented)
 	public void roomExists()
 	{
 		popErrorRoomTxt.setText("Error: Room name already exist");
 		popErrorRoomTxt.setVisible(true);
 	}
-
+	
+	
+	//getters and setters
 	public String getNewChatName() {
 		return newChatName;
 	}

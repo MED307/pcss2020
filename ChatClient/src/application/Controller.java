@@ -19,25 +19,48 @@ public class Controller {
 	// Method for changing a scene
 	public void changeScene(ActionEvent event, String FXML, User user, Connection connection) throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader();														 
+		
+		//creates the FXMLLoader used to load the next scene
+		FXMLLoader loader = new FXMLLoader();
+		
+		//Sets the location of where the FXML file is
 		loader.setLocation(getClass().getResource(FXML));
+		
+		//loads the fXML file
 		AnchorPane chatRoot = (AnchorPane)loader.load();
-		Scene chat = new Scene(chatRoot);																	
+		
+		//creates a scene from the FXML file
+		Scene chat = new Scene(chatRoot);				
+		
+		//add the Stylesheet to the scene
 		chat.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
+		
+		//gets the current stage
 		Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
 		
+		
+		//sets the scene of that stage
 		window.setScene(chat);
+		
+		//gets the controller of the FXML file
 		Controller controller = (Controller) loader.getController();
+		
+		//pass the User and connection to the next scene
 		controller.setUser(user);
 		controller.setConnection(connection);
+		
+		//check which scene and controller it is
 		if (FXML.compareTo("ChatSelector.fxml") == 0)
 		{
+			
+			//loads the ChatRoom list
 			ChatSelectorController sController = (ChatSelectorController) loader.getController();
 			sController.loadChatrooms();
 		}
 		else if(FXML.compareTo("Chat.fxml") == 0) 
 		{
+			//loads the Chat history
 			ChatController cController = (ChatController) loader.getController();
 			cController.setRoomNametxt(user.getCurrentChatRoom().getChatroomName());
 			cController.loadChat();
@@ -48,25 +71,48 @@ public class Controller {
 	// Method for changing a scene with mouse event
 	public void changeScene(MouseEvent event, String FXML, User user, Connection connection) throws IOException
 	{
+		
+		//creates the FXMLLoader used to load the next scene
 		FXMLLoader loader = new FXMLLoader();
+		
+		//Sets the location of where the FXML file is
 		loader.setLocation(getClass().getResource(FXML));
+		
+		//loads the fXML file
 		AnchorPane chatRoot = (AnchorPane)loader.load();
+		
+		//creates a scene from the FXML file
 		Scene chat = new Scene(chatRoot);
+		
+		//add the Stylesheet to the scene
 		chat.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
+		//gets the current stage
 		Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
 		
+		
+		//sets the scene of that stage
 		window.setScene(chat);
+		
+		//gets the controller of the FXML file
 		Controller controller = (Controller) loader.getController();
+		
+		//pass the User and connection to the next scene
 		controller.setUser(user);
 		controller.setConnection(connection);
+		
+		//check which scene and controller it is
 		if (FXML.compareTo("ChatSelector.fxml") == 0)
 		{
+			
+			//loads the ChatRoom list
 			ChatSelectorController sController = (ChatSelectorController) loader.getController();
 			sController.loadChatrooms();
 		} 
 		else if(FXML.compareTo("Chat.fxml") == 0) 
 		{
+			
+			//loads the Chat History
 			ChatController cController = (ChatController) loader.getController();
 			cController.setRoomNametxt(user.getCurrentChatRoom().getChatroomName());
 			cController.loadChat();

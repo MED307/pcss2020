@@ -13,24 +13,46 @@ import javafx.scene.layout.AnchorPane;
 // Main class
 public class Main extends Application {
 	
-	private Connection connection;																		// Network connection
+	private Connection connection;
 	
 	
 	// Start that creates the primary stage
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader();														// New loader
-			loader.setLocation(getClass().getResource("Client.fxml"));									// Uses the resources of the Client.fxml file
-			AnchorPane root = (AnchorPane)loader.load();												// 
-			Controller controller = (Controller) loader.getController();								// gets the controller from loader
+			
+			//creates the FXMLLoader used to load the next scen
+			FXMLLoader loader = new FXMLLoader();
+			
+			//Sets the location of where the FXML file is
+			loader.setLocation(getClass().getResource("Client.fxml"));
+			
+			//loads the fXML file
+			AnchorPane root = (AnchorPane)loader.load();
+			
+			//gets the controller of the FXML file
+			Controller controller = (Controller) loader.getController();
+			
+			//creates the connection to the server
 			connection = createClient();
-			controller.setConnection(connection);														// Sets connection
-			Scene login = new Scene(root);																// Sets the first scene to login.
-			login.getStylesheets().add(getClass().getResource("application.css").toExternalForm());		// Adds the .css file
-			primaryStage.setScene(login);																// Sets the stage scene to login
-			primaryStage.show();																		// Shows the stage
-			primaryStage.setResizable(false);															// Removes option to resize and maximize window
+			
+			//set the connection to the connection of the scene being loaded
+			controller.setConnection(connection);
+			
+			//creates a scene from the FXML file
+			Scene login = new Scene(root);
+			
+			//add the Stylesheet to the scene
+			login.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
+			//sets the scene of the stage
+			primaryStage.setScene(login);
+			
+			//shows the stage
+			primaryStage.show();
+			
+			//stops the user from resizing the window
+			primaryStage.setResizable(false);
 		
 		} catch(Exception e) {
 			e.printStackTrace();

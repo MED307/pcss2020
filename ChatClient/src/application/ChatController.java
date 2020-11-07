@@ -32,14 +32,19 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-// Class for the chatroom
+// Controller for CHAT.FXML
 public class ChatController extends Controller implements Initializable{
+	
+	
+	//When the Controller and FXML is Loaded this codes run immediatly
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		
+		//Tells the listview to use the ChatListCellController and corresponding FXML file as the way to display the information it receives
 		chatDisplayList.setCellFactory(chatRoomListView -> new ChatListCellController());
 		
+		
+		//stops the user from being able to click on the chat history, by consuming the event
 		EventHandler<MouseEvent> filter = new EventHandler<MouseEvent>()
 			{
 		    	public void handle(MouseEvent event) {
@@ -66,16 +71,26 @@ public class ChatController extends Controller implements Initializable{
 	@FXML
 	private Text roomNametxt;
 	
-	private Thread chatThread = new Thread() {													// A Thread for updating the chat, looking for new imputs from server to display. 
-		public void run() {																	// Sets a bool true
+	
+	//thread to continuosly check if a new Message has been received
+	private Thread chatThread = new Thread() {													 
+		public void run() {																	
 			
-			while(!chatThread.interrupted()) {																	// While bool is true, loop to keep running while chat is active
+			while(!chatThread.interrupted()) {																	
 				try {
+					
+					//checks what have been send
 					Object object = getConnection().receive();
+					
+					//checks whether received object is of type ChatMessage
 					if (object instanceof ChatMessage)
 					{
+						
+						//checks if the message is not the exact same as the previous message to prevent double posting
 						if (chatDisplayList.getItems().size() == 0 || !((ChatMessage) object).equals(chatDisplayList.getItems().get(chatDisplayList.getItems().size()-1)) && ((ChatMessage) object).getRoomID().compareTo(getUser().getCurrentChatRoom().getChatId()) == 0) 
 						{
+							
+							//adds the message to the listview for the user to see
 							ChatMessage chatMessage = (ChatMessage) object;
 							Platform.runLater(() ->chatDisplayList.getItems().add(chatMessage));
 							sleep(10);
@@ -83,7 +98,6 @@ public class ChatController extends Controller implements Initializable{
 						}
 					}
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -91,69 +105,74 @@ public class ChatController extends Controller implements Initializable{
 		}
 	};
 	
-	// Method for loading chat
+	// Method for loading chat into the chatDisplayList
 	public void loadChat() 
 	{
-		for(ChatMessage e: getUser().getCurrentChatRoom().getMessages()) 						// For loop, that adds messages to chat
+		
+		//loops through all messages in the chatroom
+		for(ChatMessage e: getUser().getCurrentChatRoom().getMessages()) 						
 		{
-			addMessage(e);																		// Runs the  addMessage method
+			this.chatDisplayList.getItems().add(e); // Displays the mesage on listView
 		}
+		
+		//starts the thread to check for incoming messages
 		chatThread.start();
 	}
 	
 
-	// Method makes the button interactable
+	// Method that is run when the FXML Button sendbtn is pressed
 	public void sendbtn(ActionEvent event) {
-		sendMessage();																			// runs the Send method 
+		sendMessage();
 	}
 	
-	// Method makes the 'Enter' key interactable
+	// Method that is run when the "Enter" key is pressed
 	public void sendField(KeyEvent keyEvent) {
 				
-		if (keyEvent.getCode() == KeyCode.ENTER) {												// If key is "Enter"
-			sendMessage();																		// runs the Send method 
+		if (keyEvent.getCode() == KeyCode.ENTER) {
+			sendMessage();
 		}
 	}
 
-	// Method for sending a message
+	//Method for sending a message
 	public void sendMessage() {
+		
+		//creates a object of type ChatMessage to be send to the server
 		String roomID = getUser().getCurrentChatRoom().getChatId();
 		ChatMessage message = new ChatMessage(chatField.getText(), getUser().getId(), roomID);	
 		
-		if (message.getMessage() != null) { 								// If the text field is not empty.
-			chatField.clear();												// Clears text field
-			//this.chatDisplayList.getItems().add(message);					// Adds message to chat 
-			chatDisplayList.scrollTo(chatDisplayList.getItems().size());	// Scrolls to the bottom
-			//getUser().getCurrentChatRoom().addMessage(message);				// 
+		//check if a message has been written
+		if (message.getMessage() != null) { 
+			
+			//clears the chatfield
+			chatField.clear();
+			
+			//scrolls to the buttom of the chatDisplayList to always display the newest messages
+			chatDisplayList.scrollTo(chatDisplayList.getItems().size());
+			
+			//tries to send the message to server, if the server and client is connected
 			try {
-				getConnection().send(message);								// Sends the message to server.
+				getConnection().send(message);
 			} catch (Exception e) {
 
 				e.printStackTrace();
 			}
 			
 		}
-		
 		else {
 			System.out.println("No message sent. Message was: " + message);
 		}
 	}
 	
-	// 
-	public void addMessage(ChatMessage msg)
-	{
-		this.chatDisplayList.getItems().add(msg); // Displays the mesage on listView
-	}
-	
-	
 	// Method to go back to chat server list.
 	public void goBack(ActionEvent event)
 	{
+		//stops the message checker thread
 		chatThread.interrupt();
+		
+		//tries to change scene
 		try {
-			changeScene(event, "ChatSelector.fxml", getUser(), getConnection());	//Change scene to chat room selection
+			changeScene(event, "ChatSelector.fxml", getUser(), getConnection());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -46,33 +46,43 @@ public class ClientController extends Controller implements Initializable{
 	
 	Object received;
 	
-	// Method for loggin in
+	// Method for logging in
 	public void login(ActionEvent event)
 	{
+		
+		//gets the input from the textFields
 		this.userName = userNameInput.getText();
 		this.passWord = passWordInput.getText();
 		
-		if (userNameInput.getText().trim().isEmpty() || passWordInput.getText().trim().isEmpty()) {				// Display error if name or password field are empty
-			System.out.println("Error in loggin");																// Sys write for debug
-			invalidLoginTxt.setText("invalidLoginTxt");															// Set display error text
-			invalidLoginTxt.setVisible(true);																	// Show Error text
+		//checks whether they are empty
+		if (userNameInput.getText().trim().isEmpty() || passWordInput.getText().trim().isEmpty()) {
+			System.out.println("Error in loggin");
+			
+			//displays to user that the login is not possible
+			invalidLoginTxt.setText("invalidLoginTxt");
+			invalidLoginTxt.setVisible(true);
 		}
-		else if (userName != null && passWord != null) {	 													// If fields are not empty
+		else if (userName != null && passWord != null) {
 			try {
+				
+				//creates an ArrayList and sends it to user
 				userData.add(userName);
 				userData.add(passWord);
-				getConnection().send(userData);															// Sends the userdata to server
+				getConnection().send(userData);
 				
+				
+				//waits for answer from server
 				while(!(received instanceof User)) {
-					received = getConnection().receive();												// receive object
+					received = getConnection().receive();
 				}
 				
-				if(received instanceof User) {															// If its of object: user															
+				//if answer is instance of user set is as user
+				if(received instanceof User) {														
 					setUser((User)received);
 					try {
-						changeScene(event, "ChatSelector.fxml", getUser(), getConnection());					// Change scene to chat selection as user.
+						//change scene to display chatrooms that user is part of
+						changeScene(event, "ChatSelector.fxml", getUser(), getConnection());
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -87,9 +97,14 @@ public class ClientController extends Controller implements Initializable{
 	// Method for opening the popup window for creating a new user
 	public void createNewuser(ActionEvent event) throws IOException
 	{
-		UserPopUp pop = new UserPopUp();												// Create popup
-		pop.setConnection(getConnection());												// Pass the connection
-		pop.displayUser("new User", "PopUps/newUser.fxml");								// Dispay the popup
+		//creates a popup to make a new user
+		UserPopUp pop = new UserPopUp();
+		
+		//forward the connection to the popup
+		pop.setConnection(getConnection());
+		
+		//display the popUp
+		pop.displayUser("new User", "PopUps/newUser.fxml");
 	}
 	
 

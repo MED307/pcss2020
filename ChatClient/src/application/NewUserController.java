@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 
 public class NewUserController extends Controller implements Initializable{
 	
+	
+	// FXML Imports
 	@FXML
 	private TextField newUserNameInput;
 	
@@ -33,52 +35,51 @@ public class NewUserController extends Controller implements Initializable{
 	public void createNewUser(ActionEvent event)
 	{
 		
-		if (newUserNameInput.getText().trim().isEmpty() && newUserNameInput.getPromptText() != null || newPassWordInput.getText().trim().isEmpty() && newPassWordInput.getPromptText() != null){
+		//checks if username og password input fields are empty, if show display error
+		if (newUserNameInput.getText().trim().isEmpty() && newUserNameInput.getPromptText() != null || newPassWordInput.getText().trim().isEmpty() && newPassWordInput.getPromptText() != null)
+		{
 			popErrorNameTxt.setText("Missing input");
 			popErrorNameTxt.setVisible(true);
 			System.out.println("Error");
 		}
 		
-		
+		//else if not
 		else if (this.newUserNameInput.getText() != null && this.newUserNameInput.getText() != null) 
 		{
-			try {
+			try 
+			{
+				System.out.println("User saved: " + this.newUserNameInput.getText()+ " | " + this.newPassWordInput.getText());
 				
-//				getConnection().send(newUserNameInput.getText());
-//				Object object = null;
-//				while(object == null)
-//				{
-//					object = getConnection().receive();
-//				}
-//				boolean nameTaken = (boolean) object;
-//
-//				if (nameTaken == false ) {
-					System.out.println("User saved: " + this.newUserNameInput.getText()+ " | " + this.newPassWordInput.getText());
-					User user = new User(this.newUserNameInput.getText(),this.newPassWordInput.getText());
-					getConnection().send(user);
-					((Stage)(((Button)event.getSource()).getScene().getWindow())).close(); 
-//				}
-//				
-//				else {
-//					popErrorNameTxt.setText("Username already taken");
-//					popErrorNameTxt.setVisible(true);
-//				}
+				//creates a new user
+				User user = new User(this.newUserNameInput.getText(),this.newPassWordInput.getText());
 				
-			} catch (Exception e) {
+				//sends user to server
+				getConnection().send(user);
+				
+				//closes the popup window
+				((Stage)(((Button)event.getSource()).getScene().getWindow())).close(); 
+				
+			} 
+			catch (Exception e) 
+			{
 				e.printStackTrace();
 			}
 
 		}
 	}
 	
+	//display if the user already exists (Not implemented)
 	public void userExists()
 	{
 		popErrorNameTxt.setText("Username already taken");
 		popErrorNameTxt.setVisible(true);
 	}
 	
+	
+	//make the error message not show for the user
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
 		// TODO Auto-generated method stub
 		popErrorNameTxt.setVisible(false);
 	}

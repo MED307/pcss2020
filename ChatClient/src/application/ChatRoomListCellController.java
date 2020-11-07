@@ -6,8 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 
+//Class that determines how messages that gets added to the chatroom listview.
 public class ChatRoomListCellController extends ListCell<String>{
 
+	// FXML Imports
 	@FXML
 	Label chatRoomName;
 	
@@ -19,11 +21,14 @@ public class ChatRoomListCellController extends ListCell<String>{
 	
 	FXMLLoader mLLoader;
 	
+	
+	//overrides the standard way of displaying things in a listcell to use the ChatListCell.FXML and controller instead
 	@Override
     protected void updateItem(String string, boolean empty) 
 	{
         super.updateItem(string, empty);
         
+        //checks that the message to be displayed is not null
         if(empty || string == null) 
         {
 
@@ -33,6 +38,7 @@ public class ChatRoomListCellController extends ListCell<String>{
         } 
         else 
         {
+        	//remove everything after the first digit in the ID so only the name is displayed
         	setText(string.split("(?<=\\D)(?=\\d)")[0]);
         }
         	
