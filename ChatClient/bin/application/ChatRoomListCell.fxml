@@ -6,17 +6,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<!-- Smaller anchor, these are the cells that gets loaded into -->
 <AnchorPane fx:id="pane" minHeight="50.0" minWidth="300.0" prefHeight="50.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="chatRoomName" layoutX="7.0" layoutY="6.0" prefHeight="17.0" prefWidth="288.0" text="• Room name •" textFill="#a154e5">
+      <Label fx:id="chatRoomName" layoutX="7.0" layoutY="6.0" prefHeight="17.0" prefWidth="288.0" text="• Room name •" textFill="#a154e5"> <!-- Label text that gets replaced by a chat room's name -->
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND" />  <!-- Change cursor on hover -->
          </cursor>
       </Label>
-      <Label fx:id="chatRoomUsers" layoutX="8.0" layoutY="26.0" prefHeight="17.0" prefWidth="288.0" style="-fx-background-color: none;" text="Created by User" textFill="#8b7b8d">
+      <Label fx:id="chatRoomUsers" layoutX="8.0" layoutY="26.0" prefHeight="17.0" prefWidth="288.0" style="-fx-background-color: none;" text="Created by User" textFill="#8b7b8d"> <!-- Text used to show room creator -->
          <font>
             <Font size="14.0" />
          </font>
@@ -24,7 +25,7 @@
             <Insets />
          </opaqueInsets>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND" />	<!-- Change cursor on hover -->
          </cursor></Label>
    </children>
 </AnchorPane> 

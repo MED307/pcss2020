@@ -14,32 +14,32 @@
 <!-- Scene for chat selection, Anchor Dimensions remains the same -->
 <AnchorPane id="chatSelectorScene" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #1d1c25;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ChatSelectorController">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="1000.0">
+      <ImageView fitHeight="600.0" fitWidth="1000.0">	<!-- Sets an image view of the same size as the anchors prefered dimensions to function as an image background -->
          <image>
-            <Image url="@../../assets/UI/bgplace.png" />
+            <Image url="@../../assets/UI/bgplace.png" />	<!-- Image path gets loaded -->
          </image>
       </ImageView>
-      <ImageView fitHeight="556.0" fitWidth="943.0" layoutX="29.0" layoutY="22.0">
+      <ImageView fitHeight="556.0" fitWidth="943.0" layoutX="29.0" layoutY="22.0">	<!-- ImageView that serves as the chat window wrapper -->
          <image>
-            <Image url="@../../assets/UI/body.png" />
+            <Image url="@../../assets/UI/body.png" />	<!-- Image path gets loaded -->
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="426.0" layoutY="64.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" text="Chat Rooms" textAlignment="CENTER" wrappingWidth="149.0">
+      <Text fill="WHITE" layoutX="426.0" layoutY="64.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" text="Chat Rooms" textAlignment="CENTER" wrappingWidth="149.0"> <!-- Stying of text -->
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-      <Button id="btnLogout" fx:id="logOutBtn" graphicTextGap="5.0" layoutX="682.0" layoutY="176.0" mnemonicParsing="false" onAction="#logOut" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: none;" styleClass="btn" stylesheets="@application.css" text="Log-out" textFill="#a154e5">
+      <Button id="btnLogout" fx:id="logOutBtn" graphicTextGap="5.0" layoutX="682.0" layoutY="176.0" mnemonicParsing="false" onAction="#logOut" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: none;" styleClass="btn" stylesheets="@application.css" text="Log-out" textFill="#a154e5"> <!-- button used to logout, styling extended in application.css -->
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND" />	<!-- Change cursor on hover -->
          </cursor>
-         <graphic>
-            <ImageView onDragDetected="#logOut" preserveRatio="true" scaleX="0.8" scaleY="0.8" scaleZ="0.8" smooth="false">
+         <graphic>	<!-- Uses graphic on button -->
+            <ImageView onDragDetected="#logOut" preserveRatio="true" scaleX="0.8" scaleY="0.8" scaleZ="0.8" smooth="false"> <!-- Sets imageview and id -->
                <image>
-                  <Image url="@../../assets/UI/logout.png" />
+                  <Image url="@../../assets/UI/logout.png" /> <!-- Image path for graphic -->
                </image>
             </ImageView>
          </graphic>
@@ -47,18 +47,18 @@
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets left="-30.0" />
+            <Insets left="-30.0" />	<!-- Adds less padding from left to better fit allignment in button -->
          </padding>
       </Button>
-      <Button id="btnCreateRoom" fx:id="createRoomBtn" layoutX="668.0" layoutY="143.0" mnemonicParsing="false" onAction="#createRoomBtn" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: none;" styleClass="btn" stylesheets="@application.css" text="＋ Create Room" textFill="#a154e5">
+      <Button id="btnCreateRoom" fx:id="createRoomBtn" layoutX="668.0" layoutY="143.0" mnemonicParsing="false" onAction="#createRoomBtn" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: none;" styleClass="btn" stylesheets="@application.css" text="＋ Create Room" textFill="#a154e5">	<!-- button used for creating a new chatroom, styling extended in application.css -->
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND" />	<!-- Change cursor on hover -->
          </cursor>
       </Button>
-      <ListView id="cssRoomList" fx:id="listview" layoutX="74.0" layoutY="147.0" prefHeight="395.0" prefWidth="418.0" style="-fx-background-color: none;" stylesheets="@application.css">
+      <ListView id="cssRoomList" fx:id="listview" layoutX="74.0" layoutY="147.0" prefHeight="395.0" prefWidth="418.0" style="-fx-background-color: none;" stylesheets="@application.css">	<!-- Creates a listview to display chatrooms, extensive styling extention in application.css -->
          <styleClass>
             <String fx:value="list-view" />
             <String fx:value="list-cell" />
