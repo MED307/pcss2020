@@ -73,6 +73,7 @@ public class Connection {
 				{
 					if(!isOut) {
 						Serializable data = (Serializable) in.readObject();
+						System.out.println(data.toString());
 						received = data;
 
 					} 

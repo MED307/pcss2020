@@ -92,4 +92,27 @@ public class Chatroom implements Serializable {
 	public void setUsers(ArrayList<String> users) {
 		this.users = users;
 	}
+	
+	@Override
+	public boolean equals(Object e) 
+	{
+		if (e instanceof Chatroom)
+		{
+			if (((Chatroom) e).getMessages().equals(this.getMessages()))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		
+		
+		
+	}
 }

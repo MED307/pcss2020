@@ -70,8 +70,10 @@ public class ChatController extends Controller implements Initializable{
 		public void run() {
 			isChatting = true;																	// Sets a bool true
 			System.out.println("Test thread");
-			ChatMessage c = new ChatMessage(" ", " ", getUser().getCurrentChatRoom().getChatId());
-			chatDisplayList.getItems().add(c);
+			if (chatDisplayList.getItems().size() == 0) {
+				ChatMessage c = new ChatMessage(" ", " ", getUser().getCurrentChatRoom().getChatId());
+				chatDisplayList.getItems().add(c);
+			}
 			
 			while(!chatThread.interrupted()) {																	// While bool is true, loop to keep running while chat is active
 				try {
@@ -80,7 +82,7 @@ public class ChatController extends Controller implements Initializable{
 					{
 						ChatMessage chatMessage = (ChatMessage) object;
 						Platform.runLater(() ->chatDisplayList.getItems().add(chatMessage));
-						sleep(100);
+						sleep(10);
 
 					}
 				} catch (Exception e) {

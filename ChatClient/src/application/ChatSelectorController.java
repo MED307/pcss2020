@@ -43,7 +43,6 @@ public class ChatSelectorController extends Controller implements Initializable{
 	// Initialize, in which list view is selectable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 				
 		listview.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -59,10 +58,11 @@ public class ChatSelectorController extends Controller implements Initializable{
 		        	   } catch (Exception e) {
 		        		   e.printStackTrace();
 		        	   }
-		        	   System.out.print("Beginning");
+		        	   System.out.println("Beginning");
 		        	   Object requested = null;
+		        	   
 		        	   while (!(requested instanceof Chatroom)) {
-		        		   System.out.print("Changing");
+		        		   System.out.println("Changing");
 		        		   try {
 		        			   requested = getConnection().receive();
 		        		   } catch (Exception e) {
@@ -71,7 +71,7 @@ public class ChatSelectorController extends Controller implements Initializable{
 		        	   }
 		        	   
 		        	   getUser().setCurrentChatRoom((Chatroom)requested);
-		        	   System.out.print("Changed");
+		        	   System.out.println("Changed");
 		        	   changeScene(click, "Chat.fxml", getUser(), getConnection());
 		        	   
 		           } catch (IOException e) {
